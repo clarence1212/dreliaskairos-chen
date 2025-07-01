@@ -1,1 +1,2511 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Elias Kairos Chen - Framing the Future of Intelligence</title>
+    <meta name="description" content="Visionary futurist and AI expert exploring how artificial intelligence, AGI, and superintelligence will transform families, industries, and governments.">
+    <meta name="keywords" content="artificial intelligence, AGI, superintelligence, future of work, AI ethics, digital transformation">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-purple: #7c3aed;
+            --accent-orange: #f59e0b;
+            --dark-navy: #1e293b;
+            --light-gray: #f8fafc;
+            --medium-gray: #64748b;
+            --text-dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .logo img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.2) contrast(1.15);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            color: var(--text-dark);
+        }
+
+        .logo-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-title {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section Enhanced */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9)), url('https://github.com/clarence1212/images/blob/main/framing-the-future.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Animated Background Particles */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(37, 99, 235, 0.6);
+            border-radius: 50%;
+            animation: float-particle 20s infinite linear;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; animation-duration: 15s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 3s; animation-duration: 18s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 6s; animation-duration: 22s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 9s; animation-duration: 16s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 12s; animation-duration: 20s; }
+        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 15s; animation-duration: 17s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 18s; animation-duration: 19s; }
+        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 21s; animation-duration: 21s; }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .hero-pretitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.2s forwards;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff, #e2e8f0, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: slideUp 1s ease 0.4s forwards;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hero-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: slideUp 1s ease 0.6s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideUp 1s ease 0.8s forwards;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 18px 36px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-secondary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            opacity: 0;
+            animation: slideUp 1s ease 1s forwards;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+            margin: 10px auto;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            40% {
+                transform: translateY(-10px) rotate(45deg);
+            }
+            60% {
+                transform: translateY(-5px) rotate(45deg);
+            }
+        }
+
+        /* Enhanced Floating Shapes */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.15));
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) { 
+            width: 120px; height: 120px; 
+            top: 15%; left: 8%; 
+            animation-delay: 0s; 
+            animation-duration: 12s;
+        }
+        .shape:nth-child(2) { 
+            width: 80px; height: 80px; 
+            top: 60%; right: 12%; 
+            animation-delay: 4s; 
+            animation-duration: 10s;
+        }
+        .shape:nth-child(3) { 
+            width: 100px; height: 100px; 
+            top: 75%; left: 15%; 
+            animation-delay: 2s; 
+            animation-duration: 14s;
+        }
+        .shape:nth-child(4) { 
+            width: 60px; height: 60px; 
+            top: 25%; right: 25%; 
+            animation-delay: 6s; 
+            animation-duration: 8s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                opacity: 0.7;
+            }
+            33% { 
+                transform: translateY(-30px) rotate(120deg) scale(1.1); 
+                opacity: 0.9;
+            }
+            66% { 
+                transform: translateY(20px) rotate(240deg) scale(0.9); 
+                opacity: 0.6;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            color: var(--medium-gray);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Enhanced About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-image {
+            position: relative;
+            opacity: 0;
+            animation: fadeInLeft 1s ease 0.3s forwards;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .about-image:hover img {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .about-content {
+            opacity: 0;
+            animation: fadeInRight 1s ease 0.5s forwards;
+        }
+
+        .about-content h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--medium-gray);
+            opacity: 0;
+            animation: slideUpStagger 0.8s ease forwards;
+        }
+
+        .about-content p:nth-child(3) { animation-delay: 0.7s; }
+        .about-content p:nth-child(4) { animation-delay: 0.9s; }
+        .about-content p:nth-child(5) { animation-delay: 1.1s; }
+
+        /* Enhanced Expertise Grid */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .expertise-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .expertise-card.animate {
+            animation: slideUpCard 0.6s ease forwards;
+        }
+
+        .expertise-card:nth-child(1).animate { animation-delay: 0.1s; }
+        .expertise-card:nth-child(2).animate { animation-delay: 0.2s; }
+        .expertise-card:nth-child(3).animate { animation-delay: 0.3s; }
+        .expertise-card:nth-child(4).animate { animation-delay: 0.4s; }
+        .expertise-card:nth-child(5).animate { animation-delay: 0.5s; }
+        .expertise-card:nth-child(6).animate { animation-delay: 0.6s; }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary-blue);
+        }
+
+        .expertise-icon {
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-card:hover .expertise-icon {
+            transform: scale(1.1);
+        }
+
+        .expertise-icon img {
+            transition: all 0.3s ease;
+            filter: brightness(1) contrast(1);
+        }
+
+        .expertise-card:hover .expertise-icon img {
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .expertise-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .expertise-card:hover h3 {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .expertise-card p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .expertise-card:hover p {
+            color: var(--text-dark);
+        }
+
+        .expertise-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1.5rem;
+            padding: 8px 12px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 25px;
+            background: rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .expertise-link:hover {
+            color: white;
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        .credentials-banner {
+            background: linear-gradient(135deg, var(--light-gray), #f1f5f9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .credentials-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .credentials-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .credential-icon {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideUpStagger {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUpCard {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Blog Section */
+        .blog-section {
+            background: var(--light-gray);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        .blog-category {
+            background: var(--accent-orange);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .blog-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-card p {
+            color: var(--medium-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--primary-purple);
+            transform: translateX(4px);
+        }
+
+        /* Book Section */
+        .book-section {
+            background: linear-gradient(135deg, var(--dark-navy), #1e293b);
+            color: white;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .book-cover {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .book-cover img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-content h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .book-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .book-parts {
+            margin: 2rem 0;
+        }
+
+        .book-part {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .book-part:last-child {
+            border-bottom: none;
+        }
+
+        .book-part strong {
+            color: var(--accent-orange);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--light-gray);
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 1rem;
+            background: white;
+            padding: 8px;
+            border-radius: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .newsletter-button {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .modal-header .meta {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-body h3 {
+            color: var(--primary-blue);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .modal-body h4 {
+            color: var(--text-dark);
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-body ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.5rem;
+            color: var(--medium-gray);
+        }
+
+        .download-section {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .book-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .expertise-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Interactive Elements */
+        .interactive-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loading-animation" id="loadingAnimation">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://github.com/clarence1212/images/blob/main/eck-logo.png?raw=true" alt="Dr. Elias Kairos Chen Logo">
+                <div class="logo-text">
+                    <div class="logo-name">Dr. Elias Kairos Chen</div>
+                    <div class="logo-title">AI Futurist & Author</div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blog">Research</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#book">Book</a></li>
+                <li><a href="#speaking">Speaking</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">☰</div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="interactive-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-pretitle">Leading AI Research & Thought Leadership</div>
+                <h1>Framing the Future of <span class="hero-highlight">Intelligence</span></h1>
+                <p class="subtitle">Discover how artificial intelligence, AGI, and superintelligence will transform families, industries, and the very fabric of human civilization through rigorous research and strategic foresight</p>
+                <div class="hero-buttons">
+                    <a href="#blog" class="btn-primary">
+                        🔬 Explore Research
+                    </a>
+                    <a href="#book" class="btn-secondary">
+                        📖 Read Book Series
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div>Discover More</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Dr. Chen</h2>
+                <p class="section-subtitle">Visionary futurist bridging the gap between cutting-edge AI research and human-centered solutions</p>
+                
+                <div class="about-grid">
+                    <div class="about-image">
+                        <img src="https://github.com/clarence1212/images/blob/main/clarence-3.png?raw=true" alt="Dr. Elias Kairos Chen">
+                    </div>
+                    <div class="about-content">
+                        <h3>Bridging AI Innovation and Human Flourishing</h3>
+                        <p>Dr. Elias Kairos Chen is a visionary futurist, author, and expert in artificial intelligence, strategic finance, and transformative business innovation. With decades of experience at the intersection of technology, business, finance, and entrepreneurship, Dr. Chen is dedicated to exploring how emerging technologies shape economies, industries, and society.</p>
+                        
+                        <p>Holding advanced degrees in Artificial Intelligence, Business, Finance, and Engineering, Dr. Chen combines deep technical expertise with sharp business acumen. He has successfully founded and advised numerous technology-driven ventures, developing intelligent agents that seamlessly integrate AI-driven processes with human-centered decision-making.</p>
+                        
+                        <p>Beyond his professional endeavors, Dr. Chen is passionate about using AI for social good, particularly in healthcare innovation and elderly care, enhancing quality of life through technology-driven solutions.</p>
+                    </div>
+                </div>
+
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="AI Technology" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>Artificial Intelligence</h3>
+                        <p>Deep expertise in AI systems, machine learning, and intelligent agents with focus on human-AI collaboration and ethical development.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise1')">View Technical Capabilities →</button>
+                    </div>
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Brain and Intelligence" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>AGI & Superintelligence</h3>
+                        <p>Research and strategic planning for artificial general intelligence and superintelligence implications for humanity.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise2')">View Technical Capabilities →</button>
+                    </div>
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Business Innovation" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>Business Innovation</h3>
+                        <p>Strategic finance, entrepreneurship, and transformative business models for the AI-driven economy.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise3')">View Technical Capabilities →</button>
+                    </div>
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Digital Transformation" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>AI Transformation</h3>
+                        <p>Helping organizations navigate complex technological landscapes and adapt to rapid AI advancement.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise4')">View Technical Capabilities →</button>
+                    </div>
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Future Research" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>Future Research</h3>
+                        <p>Scenario planning and strategic foresight for AI's impact on families, industries, and governments.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise5')">View Technical Capabilities →</button>
+                    </div>
+                    <div class="expertise-card">
+                        <span class="expertise-icon">
+                            <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="AI for Social Good" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">
+                        </span>
+                        <h3>AI for Social Good</h3>
+                        <p>Applying AI for healthcare innovation, elderly care, and enhancing quality of life through technology.</p>
+                        <button class="expertise-link" onclick="openExpertiseModal('expertise6')">View Technical Capabilities →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="section blog-section">
+            <div class="container">
+                <h2 class="section-title">Latest Research & Insights</h2>
+                <p class="section-subtitle">Stay informed about the latest developments in AI research and their implications for society</p>
+                
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="AI and Cognitive Infrastructure" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">AGI Research</span>
+                                <span>December 2024</span>
+                            </div>
+                            <h3>The Cognitive Infrastructure Revolution</h3>
+                            <p>Exploring how AI systems are becoming the invisible foundation of human decision-making, from personal choices to global governance.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal1')">Read Full Research →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="Family and AI" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Family Impact</span>
+                                <span>November 2024</span>
+                            </div>
+                            <h3>AI Parenting: Raising Children in the AGI Era</h3>
+                            <p>How families can prepare for a world where artificial intelligence shapes education, career paths, and social development.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal2')">Read Full Research →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="Government and Democracy" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Governance</span>
+                                <span>October 2024</span>
+                            </div>
+                            <h3>Democracy 3.0: Governing with Superintelligent Systems</h3>
+                            <p>The transformation of democratic institutions in an era where AI systems can process information and make decisions at superhuman scales.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal3')">Read Full Research →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="Economics and AI" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Economics</span>
+                                <span>September 2024</span>
+                            </div>
+                            <h3>Post-Scarcity Economics: Beyond Traditional Work</h3>
+                            <p>Analyzing new economic models that emerge when artificial intelligence automates the majority of human labor.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal4')">Read Full Research →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="Ethics and AI" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Ethics</span>
+                                <span>August 2024</span>
+                            </div>
+                            <h3>Universal Basic Intelligence: A New Human Right?</h3>
+                            <p>Exploring whether access to advanced AI capabilities should be considered a fundamental human right in the digital age.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal5')">Read Full Research →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=220&q=80" alt="Future Studies" style="width: 100%; height: 220px; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Future Studies</span>
+                                <span>July 2024</span>
+                            </div>
+                            <h3>Scenario Planning for the Singularity</h3>
+                            <p>Strategic frameworks for organizations and individuals to prepare for multiple possible futures in the age of superintelligence.</p>
+                            <a href="#" class="read-more" onclick="openModal('modal6')">Read Full Research →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="book" class="section book-section">
+            <div class="container">
+                <div class="book-grid">
+                    <div class="book-cover">
+                        <img src="https://github.com/clarence1212/images/blob/main/book-cover.png?raw=true" alt="Framing the Future of Intelligence Book Cover by Dr. Elias Kairos Chen" style="width: 100%; height: auto; border-radius: 15px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);">
+                    </div>
+                    <div class="book-content">
+                        <h3>Framing the Future of Intelligence</h3>
+                        <p>A comprehensive exploration of how artificial intelligence, AGI, and superintelligence will fundamentally transform human civilization. This groundbreaking series examines not just the technology, but the profound social, economic, and philosophical implications of the intelligence revolution.</p>
+                        
+                        <div class="book-parts">
+                            <div class="book-part">
+                                <strong>Part I - The Intelligence Shift:</strong> Evolution from human cognition to artificial and systemic intelligence
+                            </div>
+                            <div class="book-part">
+                                <strong>Part II - Agency & Cognitive Infrastructure:</strong> Design and implications of autonomous AI systems
+                            </div>
+                            <div class="book-part">
+                                <strong>Part III - The Human Question:</strong> Philosophical and social dimensions of AI integration
+                            </div>
+                            <div class="book-part">
+                                <strong>Part IV - Institutions in Transition:</strong> Structural shifts in post-labor, AI-mediated organizations
+                            </div>
+                            <div class="book-part">
+                                <strong>Part V - Scenarios & Strategic Foresight:</strong> Future trajectories and preparation strategies
+                            </div>
+                        </div>
+                        
+                        <a href="https://eliaskairos-chen.com" class="btn-primary">📖 Read on Substack</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="speaking" class="section">
+            <div class="container">
+                <h2 class="section-title">Speaking & Consulting</h2>
+                <p class="section-subtitle">Transform your organization's understanding of AI's future impact through expert insights and strategic guidance</p>
+                
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h3>Expert Guidance for the AI Transformation</h3>
+                        <p>Dr. Chen provides keynote speeches, workshops, and strategic consulting for organizations navigating the AI transformation. His presentations combine rigorous research with practical insights, helping leaders understand and prepare for the future of intelligence.</p>
+                        
+                        <div style="margin: 2rem 0;">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.3rem;">Key Speaking Topics:</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                <div style="padding: 1rem; background: var(--light-gray); border-radius: 10px;">
+                                    <strong>🚀 The Future of Work in the AGI Era</strong>
+                                    <p style="margin-top: 0.5rem; color: var(--medium-gray);">How organizations can adapt to human-AI collaboration</p>
+                                </div>
+                                <div style="padding: 1rem; background: var(--light-gray); border-radius: 10px;">
+                                    <strong>👨‍👩‍👧‍👦 AI's Impact on Families</strong>
+                                    <p style="margin-top: 0.5rem; color: var(--medium-gray);">Preparing families for the intelligence revolution</p>
+                                </div>
+                                <div style="padding: 1rem; background: var(--light-gray); border-radius: 10px;">
+                                    <strong>💰 Post-Scarcity Economics</strong>
+                                    <p style="margin-top: 0.5rem; color: var(--medium-gray);">New business models in an AI-automated world</p>
+                                </div>
+                                <div style="padding: 1rem; background: var(--light-gray); border-radius: 10px;">
+                                    <strong>🏛️ Governance & Democracy</strong>
+                                    <p style="margin-top: 0.5rem; color: var(--medium-gray);">Democratic institutions in the superintelligence era</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#contact" class="btn-primary">📅 Book Speaking Engagement</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://github.com/clarence1212/images/blob/main/audience.png?raw=true" alt="Dr. Chen Speaking" style="border-radius: 15px; width: 100%; height: 300px; object-fit: cover; margin-bottom: 2rem;">
+                        <img src="https://github.com/clarence1212/images/blob/main/audience-2.png?raw=true" alt="Dr. Chen Speaking to Audience" style="border-radius: 15px; width: 100%; height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section newsletter-section">
+            <div class="container">
+                <h2 class="section-title">Stay at the Forefront</h2>
+                <p class="section-subtitle">Join 150,000+ readers receiving cutting-edge insights on AI, superintelligence, and the future of human civilization</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+                <p style="font-size: 0.9rem; color: var(--medium-gray); margin-top: 1rem;">🔒 Privacy-first. Unsubscribe anytime. No spam, ever.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Book Series</a>
+                    <a href="#">Research Papers</a>
+                    <a href="#">Blog Articles</a>
+                    <a href="#">Speaking Materials</a>
+                    <a href="#">Consulting Services</a>
+                    <a href="#">Media Kit</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:contact@dreliaskairos-chen.com">contact@dreliaskairos-chen.com</a>
+                    <a href="#">LinkedIn Profile</a>
+                    <a href="#">Twitter/X</a>
+                    <a href="#">Substack Newsletter</a>
+                    <a href="#">ResearchGate</a>
+                    <a href="#">Google Scholar</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Latest Updates</h4>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Get weekly insights on AI research, policy developments, and societal implications.</p>
+                    <a href="#" class="btn-primary" style="padding: 12px 24px; font-size: 0.9rem;">📧 Join Newsletter</a>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="mailto:contact@dreliaskairos-chen.com" title="Email">📧</a>
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Substack">📰</a>
+                <a href="#" title="ResearchGate">🔬</a>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #334155; color: #94a3b8;">
+                <strong style="color: #cbd5e1; font-size: 1.1rem;">A GLB Group APAC Strategic Initiatives</strong><br>
+                <span style="margin-top: 0.5rem; display: inline-block;">&copy; 2025 Dr. Elias Kairos Chen. All rights reserved. | Framing the Future of Intelligence</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Expertise Modals -->
+    <div id="expertise1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Artificial Intelligence Technical Capabilities</h2>
+                <div class="meta">Core AI Systems • Machine Learning • Intelligent Agents</div>
+                <span class="close" onclick="closeModal('expertise1')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Technical Expertise</h3>
+                <h4>Machine Learning & Deep Learning:</h4>
+                <ul>
+                    <li><strong>Neural Architecture Design:</strong> Custom transformer architectures, attention mechanisms, and multi-modal learning systems</li>
+                    <li><strong>Large Language Models:</strong> Fine-tuning, prompt engineering, and alignment techniques for enterprise applications</li>
+                    <li><strong>Computer Vision:</strong> Advanced CNN architectures, object detection, and visual-language understanding</li>
+                    <li><strong>Reinforcement Learning:</strong> Policy optimization, multi-agent systems, and human feedback integration</li>
+                </ul>
+
+                <h4>AI Systems Architecture:</h4>
+                <ul>
+                    <li><strong>Distributed AI:</strong> Federated learning, edge AI deployment, and scalable inference systems</li>
+                    <li><strong>Human-AI Collaboration:</strong> Interactive AI systems, explainable AI, and trust-building mechanisms</li>
+                    <li><strong>AI Safety & Alignment:</strong> Robustness testing, bias detection, and ethical AI frameworks</li>
+                    <li><strong>Production Systems:</strong> MLOps, model versioning, and real-time AI system monitoring</li>
+                </ul>
+
+                <h3>Current Research & Development</h3>
+                <h4>Active Projects:</h4>
+                <ul>
+                    <li><strong>Cognitive Infrastructure Systems:</strong> AI systems that seamlessly integrate with human decision-making processes</li>
+                    <li><strong>Interpretable AI Models:</strong> Developing AI systems with built-in explainability for high-stakes applications</li>
+                    <li><strong>Multi-Agent Coordination:</strong> Research into cooperative AI systems for complex problem-solving</li>
+                    <li><strong>AI Governance Tools:</strong> Technical frameworks for democratic oversight of AI systems</li>
+                </ul>
+
+                <h3>Industry Applications</h3>
+                <h4>Sector Expertise:</h4>
+                <ul>
+                    <li><strong>Financial Services:</strong> Risk assessment, algorithmic trading, and regulatory compliance systems</li>
+                    <li><strong>Healthcare:</strong> Diagnostic AI, treatment recommendation systems, and clinical decision support</li>
+                    <li><strong>Manufacturing:</strong> Predictive maintenance, quality control, and supply chain optimization</li>
+                    <li><strong>Education:</strong> Adaptive learning systems, personalized tutoring, and assessment automation</li>
+                </ul>
+
+                <h3>Technical Leadership</h3>
+                <p><strong>Innovation Focus:</strong> Leading development of next-generation AI systems that prioritize human values, democratic governance, and social benefit while maintaining technical excellence and performance.</p>
+                
+                <p><strong>Collaborative Approach:</strong> Building interdisciplinary teams combining AI researchers, ethicists, policy experts, and domain specialists to create responsible AI solutions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="expertise2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AGI & Superintelligence Research</h2>
+                <div class="meta">Artificial General Intelligence • Superintelligence Safety • Strategic Foresight</div>
+                <span class="close" onclick="closeModal('expertise2')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>AGI Research Focus</h3>
+                <h4>Path to General Intelligence:</h4>
+                <ul>
+                    <li><strong>Architectural Research:</strong> Investigating neural architectures capable of general reasoning across domains</li>
+                    <li><strong>Transfer Learning:</strong> Developing systems that can apply knowledge across diverse problem domains</li>
+                    <li><strong>Meta-Learning:</strong> AI systems that can learn how to learn and adapt to novel situations</li>
+                    <li><strong>Cognitive Architectures:</strong> Integration of memory, attention, and reasoning systems</li>
+                </ul>
+
+                <h4>Superintelligence Preparation:</h4>
+                <ul>
+                    <li><strong>Alignment Research:</strong> Ensuring superintelligent systems remain aligned with human values and intentions</li>
+                    <li><strong>Control Mechanisms:</strong> Technical approaches for maintaining human oversight of advanced AI systems</li>
+                    <li><strong>Safety Testing:</strong> Methodologies for evaluating AI system behavior under edge conditions</li>
+                    <li><strong>Interpretability:</strong> Understanding and explaining superintelligent system decision-making</li>
+                </ul>
+
+                <h3>Strategic Research Programs</h3>
+                <h4>Current Initiatives:</h4>
+                <ul>
+                    <li><strong>AGI Timeline Modeling:</strong> Probabilistic models for AGI development timelines and breakthrough scenarios</li>
+                    <li><strong>Intelligence Explosion Dynamics:</strong> Mathematical modeling of recursive self-improvement scenarios</li>
+                    <li><strong>Global Coordination Frameworks:</strong> Policy research on international AGI governance and cooperation</li>
+                    <li><strong>Economic Impact Assessment:</strong> Modeling AGI's effects on labor markets, productivity, and economic systems</li>
+                </ul>
+
+                <h3>Collaborative Research</h3>
+                <h4>International Partnerships:</h4>
+                <ul>
+                    <li><strong>Academic Collaborations:</strong> Research partnerships with leading AI safety and AGI research institutions</li>
+                    <li><strong>Policy Engagement:</strong> Working with governments and international organizations on AGI governance</li>
+                    <li><strong>Industry Advisory:</strong> Consulting with AI companies on responsible AGI development practices</li>
+                    <li><strong>Civil Society:</strong> Engaging with public interest groups on AGI's societal implications</li>
+                </ul>
+
+                <h3>Publications & Thought Leadership</h3>
+                <h4>Notable Contributions:</h4>
+                <ul>
+                    <li><strong>AGI Safety Frameworks:</strong> Technical papers on alignment and control mechanisms for general AI systems</li>
+                    <li><strong>Scenario Planning:</strong> Comprehensive analysis of potential AGI development pathways and outcomes</li>
+                    <li><strong>Policy Recommendations:</strong> Guidance for policymakers on preparing for artificial general intelligence</li>
+                    <li><strong>Public Education:</strong> Accessible explanations of AGI concepts for general audiences and decision-makers</li>
+                </ul>
+
+                <h3>Future Research Directions</h3>
+                <p><strong>Long-term Vision:</strong> Developing technical and governance frameworks that ensure artificial general intelligence benefits all of humanity while preserving human agency and democratic values.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="expertise3" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Business Innovation & Strategic Finance</h2>
+                <div class="meta">AI-Driven Business Models • Strategic Finance • Technology Entrepreneurship</div>
+                <span class="close" onclick="closeModal('expertise3')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>AI-Driven Business Model Innovation</h3>
+                <h4>Strategic Framework Development:</h4>
+                <ul>
+                    <li><strong>Platform Economics:</strong> Designing multi-sided platforms leveraging AI for network effects and scalability</li>
+                    <li><strong>Data Monetization:</strong> Creating sustainable revenue models from data assets and AI-generated insights</li>
+                    <li><strong>Automation Economics:</strong> Business model adaptation for AI-automated processes and reduced labor costs</li>
+                    <li><strong>Subscription Intelligence:</strong> AI-powered personalization and dynamic pricing for subscription businesses</li>
+                </ul>
+
+                <h4>Financial Strategy & Analysis:</h4>
+                <ul>
+                    <li><strong>AI Investment Valuation:</strong> Financial modeling for AI technology investments and ROI analysis</li>
+                    <li><strong>Risk Assessment:</strong> Quantitative models for AI-related business risks and mitigation strategies</li>
+                    <li><strong>Market Analysis:</strong> Competitive intelligence and market opportunity assessment in AI sectors</li>
+                    <li><strong>Capital Structure:</strong> Optimal financing strategies for AI-intensive businesses and startups</li>
+                </ul>
+
+                <h3>Technology Entrepreneurship</h3>
+                <h4>Venture Development:</h4>
+                <ul>
+                    <li><strong>AI Startup Advisory:</strong> Strategic guidance for AI companies from ideation to scaling</li>
+                    <li><strong>Product-Market Fit:</strong> Methodologies for validating AI products and identifying target markets</li>
+                    <li><strong>Go-to-Market Strategy:</strong> Launch strategies for AI products and services in enterprise and consumer markets</li>
+                    <li><strong>Partnership Development:</strong> Strategic alliances and ecosystem building for AI ventures</li>
+                </ul>
+
+                <h4>Innovation Management:</h4>
+                <ul>
+                    <li><strong>Corporate Innovation:</strong> Frameworks for large organizations to develop and deploy AI innovations</li>
+                    <li><strong>Digital Transformation:</strong> Strategic roadmaps for AI integration across business functions</li>
+                    <li><strong>Change Management:</strong> Organizational adaptation strategies for AI-driven transformation</li>
+                    <li><strong>Culture Building:</strong> Creating innovation cultures that embrace AI and continuous learning</li>
+                </ul>
+
+                <h3>Strategic Consulting Experience</h3>
+                <h4>Client Engagements:</h4>
+                <ul>
+                    <li><strong>Fortune 500 Companies:</strong> AI strategy development and implementation for major corporations</li>
+                    <li><strong>Growth-Stage Startups:</strong> Strategic planning and funding preparation for AI-focused companies</li>
+                    <li><strong>Private Equity:</strong> Due diligence and value creation strategies for AI-related investments</li>
+                    <li><strong>Government Agencies:</strong> Policy and strategy consulting on AI economic development</li>
+                </ul>
+
+                <h3>Financial Innovation</h3>
+                <h4>Emerging Areas:</h4>
+                <ul>
+                    <li><strong>AI-Powered Finance:</strong> Development of algorithmic trading, robo-advisory, and automated financial services</li>
+                    <li><strong>Alternative Funding:</strong> Token economics, DAOs, and new funding mechanisms for AI projects</li>
+                    <li><strong>Impact Investment:</strong> Financial strategies for AI projects with positive social impact</li>
+                    <li><strong>Post-Scarcity Economics:</strong> Economic models for abundance scenarios created by advanced AI</li>
+                </ul>
+
+                <h3>Thought Leadership</h3>
+                <p><strong>Strategic Vision:</strong> Pioneering new business models and financial frameworks that harness AI's potential while ensuring sustainable, equitable economic growth and innovation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="expertise4" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AI Transformation & Organizational Intelligence</h2>
+                <div class="meta">Enterprise AI Strategy • Change Management • AI Innovation</div>
+                <span class="close" onclick="closeModal('expertise4')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Enterprise AI Strategy</h3>
+                <h4>Transformation Methodology:</h4>
+                <ul>
+                    <li><strong>AI Readiness Assessment:</strong> Comprehensive evaluation of organizational capabilities, data maturity, and cultural readiness</li>
+                    <li><strong>Strategic Roadmapping:</strong> Multi-year AI implementation plans aligned with business objectives and market dynamics</li>
+                    <li><strong>Use Case Prioritization:</strong> Framework for identifying and prioritizing AI opportunities based on impact and feasibility</li>
+                    <li><strong>ROI Optimization:</strong> Methodologies for maximizing return on AI investments through phased implementation</li>
+                </ul>
+
+                <h4>Technology Architecture:</h4>
+                <ul>
+                    <li><strong>AI Infrastructure Design:</strong> Scalable cloud and edge computing architectures for enterprise AI workloads</li>
+                    <li><strong>Data Pipeline Engineering:</strong> End-to-end data architecture supporting AI model training and deployment</li>
+                    <li><strong>Integration Strategies:</strong> Seamless AI integration with existing enterprise systems and workflows</li>
+                    <li><strong>Security & Governance:</strong> AI-specific security protocols and governance frameworks for enterprise environments</li>
+                </ul>
+
+                <h3>Organizational Change Management</h3>
+                <h4>Human-Centric Transformation:</h4>
+                <ul>
+                    <li><strong>Workforce Transition:</strong> Strategies for reskilling, upskilling, and managing AI-related workforce changes</li>
+                    <li><strong>Leadership Development:</strong> Training executives and managers to lead in AI-augmented organizations</li>
+                    <li><strong>Cultural Adaptation:</strong> Building organizational cultures that embrace AI collaboration and continuous learning</li>
+                    <li><strong>Communication Strategy:</strong> Stakeholder engagement and change communication for AI transformation initiatives</li>
+                </ul>
+
+                <h4>Process Optimization:</h4>
+                <ul>
+                    <li><strong>Business Process Reengineering:</strong> Redesigning workflows to leverage AI capabilities and automation</li>
+                    <li><strong>Decision Support Systems:</strong> Implementing AI-powered analytics and decision-making tools</li>
+                    <li><strong>Customer Experience:</strong> AI-enhanced customer touchpoints and personalization strategies</li>
+                    <li><strong>Operations Excellence:</strong> AI-driven operational efficiency and quality improvement programs</li>
+                </ul>
+
+                <h3>Industry-Specific Solutions</h3>
+                <h4>Sector Expertise:</h4>
+                <ul>
+                    <li><strong>Financial Services:</strong> AI transformation for banking, insurance, and investment management</li>
+                    <li><strong>Healthcare:</strong> AI health platforms, clinical AI, and health data analytics implementation</li>
+                    <li><strong>Manufacturing:</strong> Industry 4.0 transformation with AI-powered automation and quality control</li>
+                    <li><strong>Retail & E-commerce:</strong> AI-driven personalization, supply chain optimization, and customer analytics</li>
+                </ul>
+
+                <h3>AI Innovation Programs</h3>
+                <h4>Innovation Framework:</h4>
+                <ul>
+                    <li><strong>Innovation Labs:</strong> Establishing corporate innovation centers focused on AI and emerging technologies</li>
+                    <li><strong>Experimentation Platforms:</strong> Rapid prototyping and testing environments for AI innovations</li>
+                    <li><strong>Ecosystem Development:</strong> Building partnerships with startups, research institutions, and technology vendors</li>
+                    <li><strong>AI Product Development:</strong> Agile methodologies for creating AI-powered products and services</li>
+                </ul>
+
+                <h3>Transformation Outcomes</h3>
+                <h4>Measurable Impact:</h4>
+                <ul>
+                    <li><strong>Efficiency Gains:</strong> Typical 30-50% improvement in process efficiency through AI implementation</li>
+                    <li><strong>Revenue Growth:</strong> AI-driven product and service innovations generating new revenue streams</li>
+                    <li><strong>Cost Reduction:</strong> Automation and optimization reducing operational costs by 20-40%</li>
+                    <li><strong>Employee Satisfaction:</strong> Higher engagement through AI augmentation and meaningful work focus</li>
+                </ul>
+
+                <h3>Future-Ready Organizations</h3>
+                <p><strong>Transformation Vision:</strong> Creating adaptive, intelligent organizations that continuously evolve with AI advancement while maintaining human values and purpose.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="expertise5" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Future Research & Strategic Foresight</h2>
+                <div class="meta">Scenario Planning • Strategic Intelligence • Future Studies</div>
+                <span class="close" onclick="closeModal('expertise5')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Strategic Foresight Methodology</h3>
+                <h4>Scenario Development:</h4>
+                <ul>
+                    <li><strong>Multi-Horizon Scanning:</strong> Systematic monitoring of emerging technologies, social trends, and geopolitical developments</li>
+                    <li><strong>Cross-Impact Analysis:</strong> Quantitative modeling of interdependencies between technological and social factors</li>
+                    <li><strong>Participatory Forecasting:</strong> Delphi studies and expert consensus-building for complex future scenarios</li>
+                    <li><strong>Wild Card Analysis:</strong> Assessment of low-probability, high-impact events and their implications</li>
+                </ul>
+
+                <h4>Strategic Intelligence:</h4>
+                <ul>
+                    <li><strong>Competitive Intelligence:</strong> Advanced analytics for technology trend analysis and competitive positioning</li>
+                    <li><strong>Geopolitical Modeling:</strong> Assessment of AI development's impact on international relations and power dynamics</li>
+                    <li><strong>Social Impact Assessment:</strong> Research on AI's effects on employment, education, family structures, and social cohesion</li>
+                    <li><strong>Policy Anticipation:</strong> Forecasting regulatory and policy responses to technological advancement</li>
+                </ul>
+
+                <h3>AI Impact Research</h3>
+                <h4>Societal Transformation Studies:</h4>
+                <ul>
+                    <li><strong>Future of Work:</strong> Comprehensive analysis of AI's impact on employment, skills, and economic structures</li>
+                    <li><strong>Educational Evolution:</strong> Research on how AI will transform learning, teaching, and knowledge transmission</li>
+                    <li><strong>Family Dynamics:</strong> Studies on AI's influence on parenting, child development, and intergenerational relationships</li>
+                    <li><strong>Democratic Governance:</strong> Analysis of AI's implications for political participation and institutional design</li>
+                </ul>
+
+                <h4>Institutional Adaptation:</h4>
+                <ul>
+                    <li><strong>Corporate Strategy:</strong> Long-term strategic planning frameworks for AI-driven business environments</li>
+                    <li><strong>Government Preparedness:</strong> Policy recommendations for institutional adaptation to AI advancement</li>
+                    <li><strong>Educational Reform:</strong> Curriculum and pedagogical innovations for AI-integrated learning</li>
+                    <li><strong>Healthcare Transformation:</strong> System-wide changes needed for AI-enhanced medical practice</li>
+                </ul>
+
+                <h3>Research Programs</h3>
+                <h4>Current Projects:</h4>
+                <ul>
+                    <li><strong>Singularity Scenarios:</strong> Comprehensive scenario planning for artificial superintelligence emergence</li>
+                    <li><strong>Post-Scarcity Economics:</strong> Economic modeling for abundance scenarios created by advanced AI</li>
+                    <li><strong>Cognitive Infrastructure:</strong> Research on AI systems becoming invisible foundations of human decision-making</li>
+                    <li><strong>Global AI Governance:</strong> Analysis of international cooperation needs for AI development and deployment</li>
+                </ul>
+
+                <h3>Strategic Advisory</h3>
+                <h4>Client Applications:</h4>
+                <ul>
+                    <li><strong>Corporate Strategy:</strong> Long-term strategic planning incorporating AI advancement scenarios</li>
+                    <li><strong>Investment Strategy:</strong> Portfolio positioning for technological transition scenarios</li>
+                    <li><strong>Policy Development:</strong> Government strategic planning for AI-driven social and economic change</li>
+                    <li><strong>Risk Management:</strong> Enterprise risk assessment incorporating technological disruption scenarios</li>
+                </ul>
+
+                <h3>Methodological Innovation</h3>
+                <h4>Advanced Techniques:</h4>
+                <ul>
+                    <li><strong>AI-Assisted Forecasting:</strong> Using machine learning to enhance scenario development and probability assessment</li>
+                    <li><strong>Simulation Modeling:</strong> Agent-based models for complex social and economic system behavior</li>
+                    <li><strong>Narrative Intelligence:</strong> Combining quantitative analysis with qualitative scenario storytelling</li>
+                    <li><strong>Adaptive Planning:</strong> Dynamic strategy frameworks that adjust to changing conditions and new information</li>
+                </ul>
+
+                <h3>Research Impact</h3>
+                <h4>Influence & Applications:</h4>
+                <ul>
+                    <li><strong>Policy Influence:</strong> Research findings informing government AI strategies and international cooperation frameworks</li>
+                    <li><strong>Corporate Planning:</strong> Strategic insights guiding Fortune 500 companies' long-term AI strategies</li>
+                    <li><strong>Academic Contributions:</strong> Peer-reviewed publications advancing the field of AI foresight and strategic planning</li>
+                    <li><strong>Public Discourse:</strong> Thought leadership shaping public understanding of AI's long-term implications</li>
+                </ul>
+
+                <h3>Vision for the Future</h3>
+                <p><strong>Research Mission:</strong> Developing robust strategic frameworks that enable individuals, organizations, and societies to thrive in rapidly changing technological landscapes while preserving human values and agency.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="expertise6" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AI for Social Good & Healthcare Innovation</h2>
+                <div class="meta">Healthcare AI • Social Impact • Technology for Good</div>
+                <span class="close" onclick="closeModal('expertise6')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Healthcare AI Development</h3>
+                <h4>Clinical AI Systems:</h4>
+                <ul>
+                    <li><strong>Diagnostic AI:</strong> Machine learning models for medical imaging, pathology, and clinical decision support</li>
+                    <li><strong>Predictive Healthcare:</strong> Early warning systems for patient deterioration and disease progression</li>
+                    <li><strong>Personalized Medicine:</strong> AI-driven treatment recommendation systems based on individual patient profiles</li>
+                    <li><strong>Clinical Workflow Optimization:</strong> AI systems improving hospital efficiency and reducing medical errors</li>
+                </ul>
+
+                <h4>Digital Health Platforms:</h4>
+                <ul>
+                    <li><strong>Telemedicine AI:</strong> Intelligent triage and remote monitoring systems for virtual healthcare delivery</li>
+                    <li><strong>Mental Health AI:</strong> Conversational AI and analytics for mental health screening and support</li>
+                    <li><strong>Chronic Disease Management:</strong> AI-powered platforms for diabetes, cardiovascular, and other chronic condition management</li>
+                    <li><strong>Health Data Analytics:</strong> Population health insights and epidemiological modeling using AI</li>
+                </ul>
+
+                <h3>Elderly Care Innovation</h3>
+                <h4>Aging-in-Place Technology:</h4>
+                <ul>
+                    <li><strong>Smart Home Systems:</strong> AI-powered home monitoring for safety, health, and independence of elderly residents</li>
+                    <li><strong>Fall Detection:</strong> Computer vision and sensor fusion for real-time fall detection and emergency response</li>
+                    <li><strong>Cognitive Support:</strong> AI assistants designed specifically for cognitive decline and dementia support</li>
+                    <li><strong>Medication Management:</strong> Intelligent pill dispensers and adherence monitoring systems</li>
+                </ul>
+
+                <h4>Care Coordination:</h4>
+                <ul>
+                    <li><strong>Family Communication:</strong> Platforms connecting elderly individuals with family members and caregivers</li>
+                    <li><strong>Healthcare Integration:</strong> AI systems coordinating between multiple healthcare providers and specialists</li>
+                    <li><strong>Emergency Response:</strong> Automated emergency detection and response coordination systems</li>
+                    <li><strong>Quality of Life:</strong> AI-powered social engagement and activity recommendation systems</li>
+                </ul>
+
+                <h3>Social Impact Programs</h3>
+                <h4>Healthcare Equity:</h4>
+                <ul>
+                    <li><strong>Access Improvement:</strong> AI systems designed to reduce healthcare disparities and improve access for underserved populations</li>
+                    <li><strong>Cultural Competency:</strong> AI models trained on diverse populations to reduce bias in healthcare AI</li>
+                    <li><strong>Resource Optimization:</strong> AI systems helping healthcare providers maximize impact with limited resources</li>
+                    <li><strong>Community Health:</strong> Population health AI targeting social determinants of health</li>
+                </ul>
+
+                <h4>Global Health Applications:</h4>
+                <ul>
+                    <li><strong>Infectious Disease:</strong> AI models for epidemic prediction, contact tracing, and public health response</li>
+                    <li><strong>Maternal Health:</strong> AI systems improving prenatal care and reducing maternal mortality in developing countries</li>
+                    <li><strong>Nutrition & Food Security:</strong> AI applications for addressing malnutrition and food distribution challenges</li>
+                    <li><strong>Medical Education:</strong> AI-powered training systems for healthcare workers in resource-limited settings</li>
+                </ul>
+
+                <h3>Ethical AI Framework</h3>
+                <h4>Responsible Development:</h4>
+                <ul>
+                    <li><strong>Privacy Protection:</strong> Advanced privacy-preserving techniques for sensitive health data</li>
+                    <li><strong>Algorithmic Fairness:</strong> Ensuring AI systems provide equitable outcomes across different populations</li>
+                    <li><strong>Transparency:</strong> Explainable AI for healthcare decisions that affect patient care</li>
+                    <li><strong>Safety Assurance:</strong> Rigorous testing and validation protocols for healthcare AI systems</li>
+                </ul>
+
+                <h3>Research & Development</h3>
+                <h4>Innovation Pipeline:</h4>
+                <ul>
+                    <li><strong>Collaborative Research:</strong> Partnerships with medical institutions, NGOs, and international health organizations</li>
+                    <li><strong>Open Source Initiatives:</strong> Contributing to open-source healthcare AI projects for global benefit</li>
+                    <li><strong>Pilot Programs:</strong> Real-world testing of AI solutions in diverse healthcare settings</li>
+                    <li><strong>Evidence Generation:</strong> Rigorous clinical studies demonstrating AI impact on health outcomes</li>
+                </ul>
+
+                <h3>Impact Measurement</h3>
+                <h4>Outcomes & Results:</h4>
+                <ul>
+                    <li><strong>Patient Outcomes:</strong> Measurable improvements in diagnosis accuracy, treatment effectiveness, and patient satisfaction</li>
+                    <li><strong>Healthcare Efficiency:</strong> Cost reduction and workflow improvement through AI implementation</li>
+                    <li><strong>Access Expansion:</strong> Increased healthcare access for underserved populations through AI-powered solutions</li>
+                    <li><strong>Quality of Life:</strong> Enhanced independence and wellbeing for elderly and vulnerable populations</li>
+                </ul>
+
+                <h3>Future Vision</h3>
+                <p><strong>Social Good Mission:</strong> Leveraging AI's transformative potential to create more equitable, accessible, and effective healthcare systems that improve quality of life for all people, especially the most vulnerable populations.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>The Cognitive Infrastructure Revolution</h2>
+                <div class="meta">December 2024 • AGI Research • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal1')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>The emergence of artificial intelligence systems as the invisible foundation of human decision-making represents a paradigm shift comparable to the development of physical infrastructure in the industrial age. This research examines how AI systems are becoming embedded in the cognitive processes of individuals, organizations, and societies, creating what we term "cognitive infrastructure."</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>AI systems are transitioning from tools to cognitive partners in decision-making processes</li>
+                    <li>The development of cognitive infrastructure follows predictable patterns similar to physical infrastructure development</li>
+                    <li>Society is experiencing a "cognitive divide" between those with access to advanced AI capabilities and those without</li>
+                    <li>Traditional governance models are inadequate for managing cognitive infrastructure</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Need for new regulatory frameworks governing cognitive infrastructure</li>
+                    <li>Importance of ensuring equitable access to cognitive capabilities</li>
+                    <li>Risk of cognitive dependency and loss of human agency</li>
+                    <li>Opportunity for enhanced human decision-making capabilities</li>
+                </ul>
+
+                <h4>Methodology:</h4>
+                <p>Mixed-methods research including case studies from 50+ organizations, surveys of 2,000+ knowledge workers, and analysis of AI deployment patterns across industries.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('cognitive-infrastructure')">📄 Download PDF (2.4 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>AI Parenting: Raising Children in the AGI Era</h2>
+                <div class="meta">November 2024 • Family Impact • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal2')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>As artificial intelligence becomes increasingly sophisticated, parents face unprecedented challenges in preparing their children for a world where human intelligence is no longer unique. This research provides a comprehensive framework for understanding how families can adapt their child-rearing practices for the AGI era.</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>Traditional educational models fail to prepare children for human-AI collaboration</li>
+                    <li>Children's cognitive development is being influenced by early AI exposure</li>
+                    <li>New forms of digital literacy are essential for future success</li>
+                    <li>Family dynamics are changing as AI systems become household members</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Need for revised educational curricula emphasizing creativity and emotional intelligence</li>
+                    <li>Importance of teaching children about AI ethics and decision-making</li>
+                    <li>Risk of over-dependence on AI systems in child development</li>
+                    <li>Opportunity for personalized learning through AI tutors</li>
+                </ul>
+
+                <h4>Research Scope:</h4>
+                <p>Longitudinal study of 500 families across 15 countries, analysis of educational outcomes, and interviews with child development experts.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('ai-parenting')">📄 Download PDF (1.8 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Democracy 3.0: Governing with Superintelligent Systems</h2>
+                <div class="meta">October 2024 • Governance • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal3')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>The advent of superintelligent AI systems challenges fundamental assumptions about democratic governance. This research explores how democratic institutions must evolve to remain relevant and effective in an era where AI systems can process information and analyze policy options at superhuman scales.</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>Current democratic processes are too slow for AI-mediated decision-making</li>
+                    <li>AI systems can enhance democratic participation through better information processing</li>
+                    <li>Risk of technocratic governance replacing democratic deliberation</li>
+                    <li>Need for new forms of accountability in AI-assisted governance</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Development of hybrid human-AI governance models</li>
+                    <li>New mechanisms for ensuring AI transparency in government</li>
+                    <li>Risk of democratic legitimacy crisis</li>
+                    <li>Opportunity for more informed and efficient governance</li>
+                </ul>
+
+                <h4>Research Framework:</h4>
+                <p>Comparative analysis of 25 democratic systems, simulation studies of AI-assisted governance, and expert interviews with political scientists and technologists.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('democracy-3')">📄 Download PDF (3.1 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Post-Scarcity Economics: Beyond Traditional Work</h2>
+                <div class="meta">September 2024 • Economics • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal4')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>The automation of human labor by artificial intelligence systems creates the possibility of post-scarcity economics, where traditional notions of work, value, and distribution become obsolete. This research examines new economic models that could emerge in a world of AI-driven abundance.</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>Traditional labor markets will experience fundamental disruption within 10-15 years</li>
+                    <li>New forms of value creation emerge beyond traditional productivity metrics</li>
+                    <li>Distribution mechanisms must evolve to prevent mass unemployment and inequality</li>
+                    <li>Economic growth models require redefinition in post-scarcity contexts</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Need for universal basic income or alternative distribution mechanisms</li>
+                    <li>Redefinition of human purpose beyond economic productivity</li>
+                    <li>Risk of extreme inequality between AI owners and non-owners</li>
+                    <li>Opportunity for human flourishing through meaningful pursuits</li>
+                </ul>
+
+                <h4>Analysis Methods:</h4>
+                <p>Economic modeling, scenario planning, and case studies from early automation implementations across industries.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('post-scarcity')">📄 Download PDF (2.7 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Universal Basic Intelligence: A New Human Right?</h2>
+                <div class="meta">August 2024 • Ethics • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal5')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>As artificial intelligence capabilities become essential for full participation in society, this research examines whether access to advanced AI should be considered a fundamental human right. The concept of "Universal Basic Intelligence" (UBI-I) is proposed as a framework for ensuring equitable access to cognitive enhancement.</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>Cognitive inequality is emerging as a new form of social stratification</li>
+                    <li>Access to AI capabilities significantly impacts life outcomes</li>
+                    <li>Current market-based distribution of AI creates systematic disadvantages</li>
+                    <li>International frameworks for cognitive rights are needed</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Development of public AI infrastructure as a human right</li>
+                    <li>New international treaties governing AI access</li>
+                    <li>Risk of cognitive colonialism by AI-advanced nations</li>
+                    <li>Opportunity for global cognitive empowerment</li>
+                </ul>
+
+                <h4>Research Approach:</h4>
+                <p>Philosophical analysis, international law review, and empirical studies on AI access patterns across different socioeconomic groups.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('universal-basic-intelligence')">📄 Download PDF (2.2 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Scenario Planning for the Singularity</h2>
+                <div class="meta">July 2024 • Future Studies • Dr. Elias Kairos Chen</div>
+                <span class="close" onclick="closeModal('modal6')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Executive Summary</h3>
+                <p>The potential emergence of artificial superintelligence requires systematic preparation across multiple possible futures. This research provides strategic frameworks for organizations and individuals to prepare for various singularity scenarios, from gradual AI improvement to rapid intelligence explosion.</p>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>Multiple pathways to superintelligence with varying timelines and characteristics</li>
+                    <li>Preparation strategies must account for uncertainty and rapid change</li>
+                    <li>Institutional readiness varies significantly across sectors and regions</li>
+                    <li>Early preparation provides significant advantages in adaptation</li>
+                </ul>
+
+                <h4>Implications:</h4>
+                <ul>
+                    <li>Need for adaptive strategic planning methodologies</li>
+                    <li>Importance of building resilient institutions and systems</li>
+                    <li>Risk of catastrophic unpreparedness for rapid change</li>
+                    <li>Opportunity for proactive shaping of superintelligence outcomes</li>
+                </ul>
+
+                <h4>Methodology:</h4>
+                <p>Delphi studies with 100+ AI researchers, scenario modeling, and organizational readiness assessments across multiple industries.</p>
+
+                <div class="download-section">
+                    <h4>Download Full White Paper</h4>
+                    <a href="#" class="download-btn" onclick="downloadPaper('scenario-planning')">📄 Download PDF (3.5 MB)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality for both research and expertise
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openExpertiseModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Download paper functionality
+        function downloadPaper(paperType) {
+            // Map paper types to actual PDF filenames
+            const pdfFiles = {
+                'cognitive-infrastructure': 'Cognitive-Infrastructure-Revolution.pdf',
+                'ai-parenting': 'AI-Parenting.pdf',
+                'democracy-3': 'Democracy-3.0.pdf',
+                'post-scarcity': 'Post-Scarcity-Economics.pdf',
+                'universal-basic-intelligence': 'Universal-Basic-Intelligence.pdf',
+                'scenario-planning': 'Scenario-Planning-Singularity.pdf'
+            };
+            
+            const filename = pdfFiles[paperType];
+            if (filename) {
+                // Create download link to GitHub repository
+                const downloadUrl = `https://github.com/clarence1212/images/blob/main/${filename}?raw=true`;
+                
+                // Create temporary download link and trigger download
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = filename;
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('PDF file not found. Please check if the file has been uploaded to the repository.');
+            }
+        }
+
+        // Loading Animation
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingAnimation').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Interactive background effect
+        document.addEventListener('mousemove', function(e) {
+            const hero = document.querySelector('.hero');
+            const rect = hero.getBoundingClientRect();
+            if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                document.querySelector('.interactive-bg').style.setProperty('--x', x + '%');
+                document.querySelector('.interactive-bg').style.setProperty('--y', y + '%');
+            }
+        });
+
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Simulate loading
+            const button = this.querySelector('.newsletter-button');
+            const originalText = button.textContent;
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert('🎉 Welcome to the future! You\'ve successfully subscribed to Dr. Chen\'s insights on AI and superintelligence.');
+                this.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 1500);
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.expertise-card, .blog-card, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add click handlers for read more links
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('This would open the full article. In a real implementation, this would navigate to the complete blog post.');
+            });
+        });
+
+        // Enhanced About section animations
+        const aboutObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('expertise-card')) {
+                        entry.target.classList.add('animate');
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe expertise cards for animation
+        document.querySelectorAll('.expertise-card').forEach(card => {
+            aboutObserver.observe(card);
+        });
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent.replace(/\D/g, ''));
+                const suffix = stat.textContent.replace(/[0-9]/g, '');
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + suffix;
+                    }
+                }, 30);
+            });
+        }
+
+        // Trigger stats animation when in view
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
+                    <h4>Research Areas</h4>
+                    <a href="#">Artificial General Intelligence</a>
+                    <a href="#">Superintelligence Safety</a>
+                    <a href="#">AI & Society</a>
+                    <a href="#">Future Economics</a>
+                    <a href="#">Digital Governance</a>
+                    <a href="#">Cognitive Infrastructure</a>
+                </div>
+                <div class="footer-section">
