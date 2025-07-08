@@ -1759,8 +1759,8 @@
                     <h3 style="color: white; font-size: 1.8rem; margin-bottom: 1rem;">Join the Intelligence Revolution</h3>
                     <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Be the first to know when each new volume launches. Get exclusive early access, behind-the-scenes content, and special edition releases.</p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="#contact" class="btn-primary">📧 Get All Launch Notifications</a>
-                        <a href="https://eliaskairos-chen.com" class="btn-secondary">📖 Read Current Research</a>
+                        <a href="https://eliaskairos-chen.substack.com/subscribe" target="_blank" class="btn-primary">📧 Subscribe to Research Updates</a>
+                        <a href="https://eliaskairos-chen.com" target="_blank" class="btn-secondary">📖 Read Current Research</a>
                     </div>
                 </div>
             </div>
@@ -1812,11 +1812,18 @@
             <div class="container">
                 <h2 class="section-title">Stay at the Forefront</h2>
                 <p class="section-subtitle">Join 150,000+ readers receiving cutting-edge insights on AI, superintelligence, and the future of human civilization</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
-                    <button type="submit" class="newsletter-button">Subscribe</button>
-                </form>
-                <p style="font-size: 0.9rem; color: var(--medium-gray); margin-top: 1rem;">🔒 Privacy-first. Unsubscribe anytime. No spam, ever.</p>
+                
+                <div style="text-align: center; margin: 2rem auto; max-width: 500px;">
+                    <a href="https://eliaskairos-chen.substack.com/subscribe" 
+                       target="_blank"
+                       class="btn-primary" 
+                       style="display: inline-flex; align-items: center; gap: 10px; padding: 18px 36px; font-size: 1.1rem; text-decoration: none; width: 100%; justify-content: center; border-radius: 50px; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);"
+                       onclick="trackSubstackSubscribe()">
+                        📧 Subscribe on Substack
+                    </a>
+                </div>
+                
+                <p style="font-size: 0.9rem; color: var(--medium-gray); margin-top: 1rem; text-align: center;">🔒 Privacy-first. Unsubscribe anytime. No spam, ever.</p>
             </div>
         </section>
     </div>
@@ -1845,7 +1852,7 @@
                 <div class="footer-section">
                     <h4>Latest Updates</h4>
                     <p style="color: #94a3b8; margin-bottom: 1rem;">Get weekly insights on AI research, policy developments, and societal implications.</p>
-                    <a href="#" class="btn-primary" style="padding: 12px 24px; font-size: 0.9rem;">📧 Join Newsletter</a>
+                    <a href="https://eliaskairos-chen.substack.com/subscribe" target="_blank" class="btn-primary" style="padding: 12px 24px; font-size: 0.9rem;">📧 Subscribe to Newsletter</a>
                 </div>
             </div>
             
@@ -2608,24 +2615,21 @@
             }
         });
 
-        // Newsletter form submission
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
+        // Newsletter form submission - Updated for Substack
+        function trackSubstackSubscribe() {
+            // Optional: Add analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'newsletter_subscribe_click', {
+                    'event_category': 'engagement',
+                    'event_label': 'substack'
+                });
+            }
             
-            // Simulate loading
-            const button = this.querySelector('.newsletter-button');
-            const originalText = button.textContent;
-            button.textContent = 'Subscribing...';
-            button.disabled = true;
-            
+            // Optional: Show a brief confirmation message
             setTimeout(() => {
-                alert('🎉 Welcome to the future! You\'ve successfully subscribed to Dr. Chen\'s insights on AI and superintelligence.');
-                this.reset();
-                button.textContent = originalText;
-                button.disabled = false;
-            }, 1500);
-        });
+                console.log('User redirected to Substack subscription');
+            }, 100);
+        }
 
         // Header scroll effect
         let lastScrollTop = 0;
