@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Three Waves of Intelligence - Visualization Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .figures-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .figure-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .figure-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 15px;
+        }
+        
+        /* Figure 2.1: Three Waves Timeline */
+        .waves-timeline {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(to right, #e0f2fe 0%, #f3e5f5 50%, #f1f8e9 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-axis {
+            position: absolute;
+            bottom: 60px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: #64748b;
+        }
+        
+        .timeline-markers {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .timeline-marker {
+            font-size: 0.9em;
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .waves-container {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            right: 50px;
+            bottom: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .wave-column {
+            flex: 1;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .wave-bar {
+            width: 80px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 15px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .wave-bar:hover {
+            transform: translateY(-5px);
+        }
+        
+        .wave-digital {
+            height: 200px;
+            background: linear-gradient(to top, #0ea5e9, #38bdf8);
+            animation: growBar 2s ease-out;
+        }
+        
+        .wave-physical {
+            height: 150px;
+            background: linear-gradient(to top, #8b5cf6, #a78bfa);
+            animation: growBar 2s ease-out 0.5s both;
+        }
+        
+        .wave-autonomous {
+            height: 250px;
+            background: linear-gradient(to top, #10b981, #34d399);
+            animation: growBar 2s ease-out 1s both;
+        }
+        
+        @keyframes growBar {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .wave-label {
+            text-align: center;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .wave-stats {
+            text-align: center;
+            font-size: 0.8em;
+            color: #64748b;
+        }
+        
+        /* Figure 2.2: Market Growth Comparison */
+        .market-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .market-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .market-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .market-card.digital {
+            border-color: #38bdf8;
+        }
+        
+        .market-card.physical {
+            border-color: #a78bfa;
+        }
+        
+        .market-card.autonomous {
+            border-color: #34d399;
+        }
+        
+        .market-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .market-icon.digital {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+        }
+        
+        .market-icon.physical {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+        
+        .market-icon.autonomous {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        .market-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .market-value {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .market-value.digital {
+            color: #0ea5e9;
+        }
+        
+        .market-value.physical {
+            color: #8b5cf6;
+        }
+        
+        .market-value.autonomous {
+            color: #10b981;
+        }
+        
+        .market-cagr {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .market-description {
+            font-size: 0.9em;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+        
+        /* Figure 2.3: Regional Distribution */
+        .regional-analysis {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 20px 0;
+        }
+        
+        .regional-chart {
+            position: relative;
+        }
+        
+        .donut-chart {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .donut-chart svg {
+            transform: rotate(-90deg);
+        }
+        
+        .donut-segment {
+            fill: none;
+            stroke-width: 40;
+            transition: stroke-width 0.3s ease;
+        }
+        
+        .donut-segment:hover {
+            stroke-width: 45;
+        }
+        
+        .segment-north-america {
+            stroke: #3b82f6;
+        }
+        
+        .segment-asia-pacific {
+            stroke: #10b981;
+        }
+        
+        .segment-europe {
+            stroke: #f59e0b;
+        }
+        
+        .regional-legend {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 25px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+        }
+        
+        .legend-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
+        }
+        
+        .legend-text {
+            flex: 1;
+        }
+        
+        .legend-label {
+            font-weight: 700;
+            color: #374151;
+            font-size: 1.1em;
+        }
+        
+        .legend-value {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.3em;
+        }
+        
+        .legend-description {
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        
+        /* Figure 2.4: Case Studies Dashboard */
+        .case-studies-section {
+            margin: 30px 0;
+        }
+        
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .case-study-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .case-study-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .case-study-card.digital {
+            border-left: 5px solid #38bdf8;
+        }
+        
+        .case-study-card.physical {
+            border-left: 5px solid #a78bfa;
+        }
+        
+        .case-study-card.autonomous {
+            border-left: 5px solid #34d399;
+        }
+        
+        .case-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .case-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .case-icon.digital {
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+        }
+        
+        .case-icon.physical {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+        
+        .case-icon.autonomous {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        .case-info h3 {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .case-info .case-type {
+            font-size: 0.9em;
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .case-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .metric {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: #059669;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.85em;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        
+        .case-insight {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .case-insight p {
+            font-size: 0.9em;
+            color: #374151;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        /* Figure 2.5: Investment Flow Analysis */
+        .investment-flow {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .flow-chart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .flow-node {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex: 1;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .flow-node:hover {
+            transform: scale(1.05);
+        }
+        
+        .flow-arrow {
+            font-size: 2em;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        
+        .flow-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        
+        .flow-amount {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: #059669;
+            margin-bottom: 10px;
+        }
+        
+        .flow-description {
+            font-size: 0.85em;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px 10px;
+            }
+            
+            .market-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .regional-analysis {
+                grid-template-columns: 1fr;
+            }
+            
+            .waves-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .wave-column {
+                margin: 10px 0;
+            }
+            
+            .flow-chart {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>Chapter 2: Three Waves of Intelligence</h1>
+        <p>Digital, Physical, and Autonomous Intelligence - Complete Visualization Dashboard</p>
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="figures-grid">
+            
+            <!-- Figure 2.1: Three Waves Timeline -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.1: The Three Waves of Intelligence Evolution Timeline</h2>
+                <div class="waves-timeline">
+                    <div class="timeline-axis"></div>
+                    <div class="timeline-markers">
+                        <span class="timeline-marker">2020</span>
+                        <span class="timeline-marker">2023</span>
+                        <span class="timeline-marker">2025</span>
+                        <span class="timeline-marker">2027</span>
+                        <span class="timeline-marker">2030</span>
+                    </div>
+                    <div class="waves-container">
+                        <div class="wave-column">
+                            <div class="wave-bar wave-digital"></div>
+                            <div class="wave-label">Digital Intelligence</div>
+                            <div class="wave-stats">First Wave<br>Software & Cloud</div>
+                        </div>
+                        <div class="wave-column">
+                            <div class="wave-bar wave-physical"></div>
+                            <div class="wave-label">Physical Intelligence</div>
+                            <div class="wave-stats">Second Wave<br>Robotics & IoT</div>
+                        </div>
+                        <div class="wave-column">
+                            <div class="wave-bar wave-autonomous"></div>
+                            <div class="wave-label">Autonomous Intelligence</div>
+                            <div class="wave-stats">Third Wave<br>Agents & Autonomy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Figure 2.2: Market Growth Comparison -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.2: Digital Intelligence Market Growth and Enterprise Adoption</h2>
+                <div class="market-comparison">
+                    <div class="market-card digital">
+                        <div class="market-icon digital">DI</div>
+                        <div class="market-title">Digital Intelligence</div>
+                        <div class="market-value digital">$757.6B</div>
+                        <div class="market-cagr">19.2% CAGR</div>
+                        <div class="market-description">
+                            Software-based AI systems, cloud platforms, and enterprise applications. Mature market with widespread adoption.
+                        </div>
+                    </div>
+                    <div class="market-card physical">
+                        <div class="market-icon physical">PI</div>
+                        <div class="market-title">Physical Intelligence</div>
+                        <div class="market-value physical">$16.1B</div>
+                        <div class="market-cagr">38.5% CAGR</div>
+                        <div class="market-description">
+                            Robotics, embodied AI, and physical systems. Fastest hardware growth with manufacturing focus.
+                        </div>
+                    </div>
+                    <div class="market-card autonomous">
+                        <div class="market-icon autonomous">AI</div>
+                        <div class="market-title">Autonomous Intelligence</div>
+                        <div class="market-value autonomous">$5.4B</div>
+                        <div class="market-cagr">45.8% CAGR</div>
+                        <div class="market-description">
+                            AI agents and autonomous systems. Highest growth rate with enterprise transformation focus.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Figure 2.3: Regional Distribution -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.3: Physical Intelligence Investment Flows and Regional Distribution</h2>
+                <div class="regional-analysis">
+                    <div class="regional-chart">
+                        <div class="donut-chart">
+                            <svg width="300" height="300" viewBox="0 0 300 300">
+                                <circle cx="150" cy="150" r="110" class="donut-segment segment-north-america"
+                                    stroke-dasharray="273.8 686.6" stroke-dashoffset="0"></circle>
+                                <circle cx="150" cy="150" r="110" class="donut-segment segment-asia-pacific"
+                                    stroke-dasharray="308.4 651.6" stroke-dashoffset="-273.8"></circle>
+                                <circle cx="150" cy="150" r="110" class="donut-segment segment-europe"
+                                    stroke-dasharray="107.4 852.6" stroke-dashoffset="-582.2"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="regional-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3b82f6;"></div>
+                            <div class="legend-text">
+                                <div class="legend-label">North America</div>
+                                <div class="legend-value">39.9%</div>
+                                <div class="legend-description">Technology leadership & innovation</div>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #10b981;"></div>
+                            <div class="legend-text">
+                                <div class="legend-label">Asia-Pacific</div>
+                                <div class="legend-value">44.6%</div>
+                                <div class="legend-description">Manufacturing & scale deployment</div>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #f59e0b;"></div>
+                            <div class="legend-text">
+                                <div class="legend-label">Europe</div>
+                                <div class="legend-value">15.5%</div>
+                                <div class="legend-description">Governance & standards</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Figure 2.4: Case Studies Dashboard -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.4: Autonomous Intelligence Market Projections and Enterprise Applications</h2>
+                <div class="case-studies-section">
+                    <div class="case-studies-grid">
+                        <div class="case-study-card digital">
+                            <div class="case-header">
+                                <div class="case-icon digital">BA</div>
+                                <div class="case-info">
+                                    <h3>Bank of America - Erica</h3>
+                                    <div class="case-type">Digital Intelligence Platform</div>
+                                </div>
+                            </div>
+                            <div class="case-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">1B+</div>
+                                    <div class="metric-label">User Interactions</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">50%</div>
+                                    <div class="metric-label">Cost Reduction</div>
+                                </div>
+                            </div>
+                            <div class="case-insight">
+                                <p>Evolved from chatbot to sophisticated financial advisor providing proactive insights and personalized recommendations.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="case-study-card physical">
+                            <div class="case-header">
+                                <div class="case-icon physical">BD</div>
+                                <div class="case-info">
+                                    <h3>Boston Dynamics - Atlas</h3>
+                                    <div class="case-type">Physical Intelligence Robot</div>
+                                </div>
+                            </div>
+                            <div class="case-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">800</div>
+                                    <div class="metric-label">Teraflops AI Power</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Real-time</div>
+                                    <div class="metric-label">Adaptation</div>
+                                </div>
+                            </div>
+                            <div class="case-insight">
+                                <p>Integration with NVIDIA Jetson Thor enables real-time adaptation and coordination with intelligent systems.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="case-study-card autonomous">
+                            <div class="case-header">
+                                <div class="case-icon autonomous">SF</div>
+                                <div class="case-info">
+                                    <h3>Salesforce - Agentforce</h3>
+                                    <div class="case-type">Autonomous Intelligence Platform</div>
+                                </div>
+                            </div>
+                            <div class="case-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">84%</div>
+                                    <div class="metric-label">Resolution Rate</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Multi-step</div>
+                                    <div class="metric-label">Goal Pursuit</div>
+                                </div>
+                            </div>
+                            <div class="case-insight">
+                                <p>Autonomous agents work toward business objectives, adapting strategies based on changing circumstances.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="case-study-card autonomous">
+                            <div class="case-header">
+                                <div class="case-icon autonomous">DHL</div>
+                                <div class="case-info">
+                                    <h3>DHL - Logistics Intelligence</h3>
+                                    <div class="case-type">Autonomous Operations</div>
+                                </div>
+                            </div>
+                            <div class="case-metrics">
+                                <div class="metric">
+                                    <div class="metric-value">28%</div>
+                                    <div class="metric-label">Faster Delivery</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">$890M</div>
+                                    <div class="metric-label">Annual Savings</div>
+                                </div>
+                            </div>
+                            <div class="case-insight">
+                                <p>Discovers novel optimization strategies using social media data to predict demand spikes autonomously.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Figure 2.5: Investment Flow Analysis -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.5: Intelligence Convergence and Network Effects Diagram</h2>
+                <div class="investment-flow">
+                    <div class="flow-chart">
+                        <div class="flow-node">
+                            <div class="flow-title">Digital Intelligence</div>
+                            <div class="flow-amount">$45B</div>
+                            <div class="flow-description">Foundation models & cloud platforms driving generative AI investment</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node">
+                            <div class="flow-title">Physical Intelligence</div>
+                            <div class="flow-amount">$675M</div>
+                            <div class="flow-description">Figure AI funding from NVIDIA, Bezos, OpenAI ecosystem</div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node">
+                            <div class="flow-title">Autonomous Intelligence</div>
+                            <div class="flow-amount">$50B</div>
+                            <div class="flow-description">Enterprise agents market projected 2030 value</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 10px;">
+                        <h3 style="color: #1e293b; margin-bottom: 15px; text-align: center;">Convergence Effects</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-weight: 700; color: #3b82f6; margin-bottom: 5px;">Data Flow Integration</div>
+                                <div style="font-size: 0.9em; color: #6b7280;">Digital systems generate training data for physical intelligence</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 700; color: #8b5cf6; margin-bottom: 5px;">Real-time Coordination</div>
+                                <div style="font-size: 0.9em; color: #6b7280;">Physical systems provide feedback for autonomous decision-making</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 700; color: #10b981; margin-bottom: 5px;">Network Effects</div>
+                                <div style="font-size: 0.9em; color: #6b7280;">Autonomous systems orchestrate digital and physical intelligence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Figure 2.6: Future Timeline Projections -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 2.6: Future Convergence Timeline and Market Projections</h2>
+                <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 15px; padding: 30px;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                        <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #3b82f6; margin-bottom: 10px;">2025-2027</div>
+                            <div style="font-weight: 700; color: #1e293b; margin-bottom: 15px;">Acceleration Phase</div>
+                            <div style="font-size: 0.9em; color: #6b7280; line-height: 1.5;">
+                                • Digital intelligence becomes enterprise standard<br>
+                                • Physical intelligence achieves commercial viability<br>
+                                • Autonomous intelligence demonstrates value creation
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #8b5cf6; margin-bottom: 10px;">2027-2030</div>
+                            <div style="font-weight: 700; color: #1e293b; margin-bottom: 15px;">Integration Phase</div>
+                            <div style="font-size: 0.9em; color: #6b7280; line-height: 1.5;">
+                                • Cross-platform orchestration<br>
+                                • New intelligence-first business models<br>
+                                • Competitive transformation across industries
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #10b981; margin-bottom: 10px;">2030+</div>
+                            <div style="font-weight: 700; color: #1e293b; margin-bottom: 15px;">Transformation Complete</div>
+                            <div style="font-size: 0.9em; color: #6b7280; line-height: 1.5;">
+                                • $4+ trillion combined market<br>
+                                • Human-AI collaboration patterns<br>
+                                • Economic reorganization models
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center; padding: 25px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 15px;">
+                        <div style="font-size: 2.5em; font-weight: 800; color: #1e40af; margin-bottom: 10px;">$4+ Trillion</div>
+                        <div style="font-size: 1.2em; font-weight: 600; color: #1e293b; margin-bottom: 10px;">Combined Market Potential by 2030</div>
+                        <div style="color: #64748b;">Digital + Physical + Autonomous Intelligence convergence represents the largest technological transformation since the Industrial Revolution</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
