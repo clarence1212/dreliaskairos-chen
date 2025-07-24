@@ -1,1 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: The Intelligence Convergence - Visualization Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #2563eb;
+        }
+
+        .dashboard-header h1 {
+            color: #1e293b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .dashboard-header p {
+            color: #64748b;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 4px solid #2563eb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
+        }
+
+        .chart-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-content {
+            height: 350px;
+            position: relative;
+        }
+
+        .full-width-chart {
+            grid-column: 1 / -1;
+        }
+
+        .full-width-chart .chart-content {
+            height: 400px;
+        }
+
+        /* Computing Power Growth Chart */
+        .computing-chart {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .performance-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 250px;
+            margin: 20px 0;
+        }
+
+        .performance-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .bar {
+            background: linear-gradient(180deg, #60a5fa, #2563eb);
+            border-radius: 8px 8px 0 0;
+            width: 60px;
+            min-height: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #475569;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Data Growth Chart */
+        .data-growth-line {
+            position: relative;
+            height: 250px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .growth-line {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #059669, #047857);
+            border-radius: 2px;
+        }
+
+        .data-points {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .data-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .point-circle {
+            width: 12px;
+            height: 12px;
+            background: #059669;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .point-label {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9em;
+        }
+
+        .point-value {
+            position: absolute;
+            bottom: 35px;
+            background: #059669;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Investment Flow Chart */
+        .investment-flows {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .flow-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .flow-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .flow-item:nth-child(1) { border-left-color: #2563eb; }
+        .flow-item:nth-child(2) { border-left-color: #059669; }
+        .flow-item:nth-child(3) { border-left-color: #dc2626; }
+        .flow-item:nth-child(4) { border-left-color: #7c3aed; }
+
+        .flow-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .flow-item:nth-child(1) .flow-icon { background: #2563eb; }
+        .flow-item:nth-child(2) .flow-icon { background: #059669; }
+        .flow-item:nth-child(3) .flow-icon { background: #dc2626; }
+        .flow-item:nth-child(4) .flow-icon { background: #7c3aed; }
+
+        .flow-content {
+            flex: 1;
+        }
+
+        .flow-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .flow-amount {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        /* Regional Competition Chart */
+        .regional-competition {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .region-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .region-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .region-card:nth-child(1) {
+            border-color: #2563eb;
+        }
+
+        .region-card:nth-child(2) {
+            border-color: #dc2626;
+        }
+
+        .region-card:nth-child(3) {
+            border-color: #059669;
+        }
+
+        .region-name {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .region-card:nth-child(1) .region-name { color: #2563eb; }
+        .region-card:nth-child(2) .region-name { color: #dc2626; }
+        .region-card:nth-child(3) .region-name { color: #059669; }
+
+        .region-metric {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .region-card:nth-child(1) .region-metric { color: #2563eb; }
+        .region-card:nth-child(2) .region-metric { color: #dc2626; }
+        .region-card:nth-child(3) .region-metric { color: #059669; }
+
+        .region-desc {
+            color: #64748b;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        /* Convergence Timeline */
+        .convergence-timeline {
+            position: relative;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: linear-gradient(180deg, #2563eb, #3b82f6, #60a5fa);
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .timeline-events {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .timeline-event {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .timeline-event:nth-child(odd) {
+            justify-content: flex-start;
+        }
+
+        .timeline-event:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .event-content {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 45%;
+            border-left: 4px solid #2563eb;
+            position: relative;
+        }
+
+        .timeline-event:nth-child(even) .event-content {
+            border-left: none;
+            border-right: 4px solid #2563eb;
+        }
+
+        .event-year {
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .event-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .event-desc {
+            color: #64748b;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: #2563eb;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+            z-index: 2;
+        }
+
+        /* Summary Stats */
+        .summary-stats {
+            background: linear-gradient(135deg, #1e293b 0%, #374151 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #60a5fa;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .regional-competition {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 2em;
+            }
+
+            .timeline-event .event-content {
+                max-width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>The Intelligence Convergence</h1>
+            <p>Four technological pillars have simultaneously reached critical thresholds, creating exponential AI progress through computing power, data explosion, internet infrastructure, and algorithmic breakthroughs.</p>
+        </div>
+
+        <div class="charts-grid">
+            <!-- Computing Power Growth Chart -->
+            <div class="chart-container">
+                <h3 class="chart-title">Figure 3.1: AI Computing Power vs. Moore's Law</h3>
+                <div class="chart-content computing-chart">
+                    <div class="performance-bars">
+                        <div class="performance-bar">
+                            <div class="bar" style="height: 40px;">
+                                <div class="bar-value">2x</div>
+                            </div>
+                            <div class="bar-label">Moore's Law<br>(2020-2022)</div>
+                        </div>
+                        <div class="performance-bar">
+                            <div class="bar" style="height: 120px;">
+                                <div class="bar-value">25x</div>
+                            </div>
+                            <div class="bar-label">NVIDIA<br>Blackwell</div>
+                        </div>
+                        <div class="performance-bar">
+                            <div class="bar" style="height: 200px;">
+                                <div class="bar-value">1000x</div>
+                            </div>
+                            <div class="bar-label">AI Chips<br>(Decade)</div>
+                        </div>
+                        <div class="performance-bar">
+                            <div class="bar" style="height: 80px;">
+                                <div class="bar-value">4x</div>
+                            </div>
+                            <div class="bar-label">Google<br>TPU v5</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: #64748b; margin-top: 10px;">
+                        Specialized AI architectures transcend traditional semiconductor scaling
+                    </p>
+                </div>
+            </div>
+
+            <!-- Data Growth Chart -->
+            <div class="chart-container">
+                <h3 class="chart-title">Figure 3.2: Global Data Growth Trajectory</h3>
+                <div class="chart-content">
+                    <div class="data-growth-line">
+                        <div class="growth-line"></div>
+                        <div class="data-points">
+                            <div class="data-point">
+                                <div class="point-value">33 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2018</div>
+                            </div>
+                            <div class="data-point">
+                                <div class="point-value">64 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2020</div>
+                            </div>
+                            <div class="data-point">
+                                <div class="point-value">120 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2023</div>
+                            </div>
+                            <div class="data-point">
+                                <div class="point-value">149 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2024</div>
+                            </div>
+                            <div class="data-point">
+                                <div class="point-value">181 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2025</div>
+                            </div>
+                            <div class="data-point">
+                                <div class="point-value">394 ZB</div>
+                                <div class="point-circle"></div>
+                                <div class="point-label">2028</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: #64748b; margin-top: 20px;">
+                        23% annual growth providing unprecedented training material for AI systems
+                    </p>
+                </div>
+            </div>
+
+            <!-- Investment Flows -->
+            <div class="chart-container">
+                <h3 class="chart-title">Figure 3.3: Global AI Investment Flows (2024)</h3>
+                <div class="chart-content investment-flows">
+                    <div class="flow-items">
+                        <div class="flow-item">
+                            <div class="flow-icon">AI</div>
+                            <div class="flow-content">
+                                <div class="flow-title">AI Companies VC Funding</div>
+                                <div class="flow-amount">$100B+ (80% increase)</div>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">💻</div>
+                            <div class="flow-content">
+                                <div class="flow-title">AI Infrastructure Spending</div>
+                                <div class="flow-amount">$47.4B (97% growth)</div>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">🤖</div>
+                            <div class="flow-content">
+                                <div class="flow-title">Generative AI Investment</div>
+                                <div class="flow-amount">$45B (doubled from 2023)</div>
+                            </div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">5G</div>
+                            <div class="flow-content">
+                                <div class="flow-title">5G Infrastructure Market</div>
+                                <div class="flow-amount">$14.8B → $368.8B by 2033</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regional Competition -->
+            <div class="chart-container">
+                <h3 class="chart-title">Figure 3.4: Regional Convergence Leadership</h3>
+                <div class="chart-content">
+                    <div class="regional-competition">
+                        <div class="region-card">
+                            <div class="region-name">United States</div>
+                            <div class="region-metric">99%</div>
+                            <div class="region-desc">Global AI funding share (H1 2025)<br>Innovation ecosystem leadership</div>
+                        </div>
+                        <div class="region-card">
+                            <div class="region-name">China</div>
+                            <div class="region-metric">62%</div>
+                            <div class="region-desc">Global 5G market share<br>State-directed coordination</div>
+                        </div>
+                        <div class="region-card">
+                            <div class="region-name">Europe</div>
+                            <div class="region-metric">#1</div>
+                            <div class="region-desc">AI governance standards<br>EU AI Act global influence</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Convergence Timeline -->
+            <div class="chart-container full-width-chart">
+                <h3 class="chart-title">Figure 3.5: The Convergence Timeline - Critical Breakthrough Moments</h3>
+                <div class="chart-content convergence-timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-events">
+                        <div class="timeline-event">
+                            <div class="event-content">
+                                <div class="event-year">2017</div>
+                                <div class="event-title">Transformer Architecture</div>
+                                <div class="event-desc">"Attention Is All You Need" establishes foundation for modern AI</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-event">
+                            <div class="event-content">
+                                <div class="event-year">2020</div>
+                                <div class="event-title">Data Explosion Accelerates</div>
+                                <div class="event-desc">Global data reaches 64 zettabytes, COVID drives digital transformation</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-event">
+                            <div class="event-content">
+                                <div class="event-year">2022</div>
+                                <div class="event-title">5G Global Deployment</div>
+                                <div class="event-desc">5G networks enable real-time AI applications at scale</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-event">
+                            <div class="event-content">
+                                <div class="event-year">2024</div>
+                                <div class="event-title">Computing Convergence</div>
+                                <div class="event-desc">AI infrastructure spending hits $47.4B, specialized chips dominate</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-event">
+                            <div class="event-content">
+                                <div class="event-year">2025</div>
+                                <div class="event-title">Full Convergence</div>
+                                <div class="event-desc">All four pillars reach critical mass, exponential progress begins</div>
+                            </div>
+                            <div class="timeline-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="summary-stats">
+            <h3 style="font-size: 1.8em; margin-bottom: 10px;">The Convergence By Numbers</h3>
+            <p style="color: #cbd5e1; margin-bottom: 5px;">Key metrics demonstrating the unprecedented scale of technological convergence</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">$220B</div>
+                    <div class="stat-label">Annual AI Investment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2B+</div>
+                    <div class="stat-label">5G Connections</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">181ZB</div>
+                    <div class="stat-label">Data Generated 2025</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000x</div>
+                    <div class="stat-label">AI Chip Performance</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive hover effects and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate bars on page load
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach((bar, index) => {
+                bar.style.transform = 'scaleY(0)';
+                bar.style.transformOrigin = 'bottom';
+                setTimeout(() => {
+                    bar.style.transition = 'transform 0.8s ease-out';
+                    bar.style.transform = 'scaleY(1)';
+                }, index * 200);
+            });
+
+            // Animate data points
+            const dataPoints = document.querySelectorAll('.point-circle');
+            dataPoints.forEach((point, index) => {
+                point.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    point.style.transition = 'transform 0.5s ease-out';
+                    point.style.transform = 'scale(1)';
+                }, index * 150 + 500);
+            });
+
+            // Animate timeline dots
+            const timelineDots = document.querySelectorAll('.timeline-dot');
+            timelineDots.forEach((dot, index) => {
+                dot.style.transform = 'translate(-50%, -50%) scale(0)';
+                setTimeout(() => {
+                    dot.style.transition = 'transform 0.4s ease-out';
+                    dot.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, index * 200 + 1000);
+            });
+
+            // Animate stat numbers with counting effect
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const text = target.textContent;
+                        const isNumber = /^\d+/.test(text);
+                        
+                        if (isNumber) {
+                            const number = parseInt(text.match(/\d+/)[0]);
+                            const suffix = text.replace(/^\d+/, '');
+                            let current = 0;
+                            const increment = number / 50;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= number) {
+                                    current = number;
+                                    clearInterval(timer);
+                                }
+                                target.textContent = Math.floor(current) + suffix;
+                            }, 30);
+                        }
+                        observer.unobserve(target);
+                    }
+                });
+            }, observerOptions);
+
+            statNumbers.forEach(number => {
+                observer.observe(number);
+            });
+
+            // Add tooltips to chart elements
+            const flowItems = document.querySelectorAll('.flow-item');
+            flowItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px) scale(1.02)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(5px) scale(1)';
+                });
+            });
+
+            // Enhanced region card interactions
+            const regionCards = document.querySelectorAll('.region-card');
+            regionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-5px) scale(1)';
+                });
+            });
+
+            // Smooth scroll animation for timeline
+            const timelineEvents = document.querySelectorAll('.timeline-event');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            timelineEvents.forEach((event, index) => {
+                event.style.opacity = '0';
+                event.style.transform = 'translateY(50px)';
+                event.style.transition = `opacity 0.6s ease-out ${index * 0.2}s, transform 0.6s ease-out ${index * 0.2}s`;
+                timelineObserver.observe(event);
+            });
+
+            // Performance bar click interactions
+            bars.forEach((bar, index) => {
+                bar.addEventListener('click', function() {
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.top = '50%';
+                    ripple.style.left = '50%';
+                    ripple.style.width = '10px';
+                    ripple.style.height = '10px';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.transform = 'translate(-50%, -50%)';
+                    ripple.style.animation = 'ripple 0.6s ease-out';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                });
+            });
+
+            // Add CSS animation for ripple effect
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    0% {
+                        width: 10px;
+                        height: 10px;
+                        opacity: 1;
+                    }
+                    100% {
+                        width: 100px;
+                        height: 100px;
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                }
+                
+                .chart-container:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+                }
+                
+                .performance-bar:hover .bar-value {
+                    background: #3b82f6;
+                    transform: translateX(-50%) scale(1.1);
+                }
+                
+                .point-circle:hover {
+                    animation: pulse 1s infinite;
+                    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.5);
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
