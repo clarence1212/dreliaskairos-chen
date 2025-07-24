@@ -1,1 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8: The Post-Labor Economy - Professional Visualization Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .figure-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e8ed;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .figure-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .figure-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        /* Figure 8.1: AI Investment Growth */
+        .investment-growth {
+            height: 400px;
+            position: relative;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .investment-bars {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .investment-bar {
+            width: 80px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .investment-bar:hover {
+            transform: scale(1.05);
+        }
+
+        .investment-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+
+        .investment-bar::before {
+            content: attr(data-year);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Figure 8.2: Job Displacement vs Creation */
+        .job-impact {
+            height: 450px;
+            position: relative;
+        }
+
+        .job-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 350px;
+        }
+
+        .job-category {
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .jobs-displaced {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #ef4444;
+        }
+
+        .jobs-created {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #10b981;
+        }
+
+        .job-number {
+            font-size: 3em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .jobs-displaced .job-number {
+            color: #dc2626;
+        }
+
+        .jobs-created .job-number {
+            color: #059669;
+        }
+
+        .job-label {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .job-details {
+            font-size: 0.9em;
+            color: #64748b;
+            text-align: center;
+        }
+
+        /* Figure 8.3: UBI Trial Results */
+        .ubi-results {
+            height: 400px;
+        }
+
+        .ubi-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            height: 320px;
+        }
+
+        .ubi-metric {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .ubi-metric:hover {
+            transform: translateY(-3px);
+            border-color: #3b82f6;
+        }
+
+        .ubi-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .ubi-description {
+            font-size: 0.9em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Figure 8.4: Autonomous Value Creation */
+        .value-creation {
+            height: 450px;
+        }
+
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            height: 380px;
+        }
+
+        .sector-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+
+        .sector-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .sector-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .metric-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        /* Figure 8.5: Investment Flows */
+        .investment-flows {
+            height: 400px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 320px;
+            position: relative;
+        }
+
+        .flow-node {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .flow-node.ai-investment {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .flow-node.autonomous-systems {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        }
+
+        .flow-node.economic-value {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        }
+
+        .flow-amount {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .flow-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6 0%, #a855f7 50%, #10b981 100%);
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #10b981;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+
+        .key-insights {
+            background: linear-gradient(135deg, #fef9e7 0%, #fef3c7 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .key-insights h3 {
+            color: #d97706;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .insight-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #f59e0b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .insight-title {
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .insight-text {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .figures-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .job-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .ubi-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .sector-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-diagram {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .flow-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Chapter 8: The Post-Labor Economy</h1>
+            <p>Professional Visualization Dashboard - Value Creation Without Human Work</p>
+        </div>
+
+        <div class="figures-grid">
+            <!-- Figure 8.1: AI Investment Growth -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 8.1: Global AI Investment Growth (2020-2024)</h2>
+                <div class="investment-growth">
+                    <div class="investment-bars">
+                        <div class="investment-bar" style="height: 25%;" data-value="$25B" data-year="2020"></div>
+                        <div class="investment-bar" style="height: 35%;" data-value="$35B" data-year="2021"></div>
+                        <div class="investment-bar" style="height: 45%;" data-value="$45B" data-year="2022"></div>
+                        <div class="investment-bar" style="height: 65%;" data-value="$56B" data-year="2023"></div>
+                        <div class="investment-bar" style="height: 100%;" data-value="$100B+" data-year="2024"></div>
+                    </div>
+                    <div style="text-align: center; color: #64748b; font-size: 0.9em;">
+                        80% increase in 2024, representing 33% of all global venture funding
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 8.2: Job Displacement vs Creation -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 8.2: AI Job Impact Projections (2025-2030)</h2>
+                <div class="job-impact">
+                    <div class="job-categories">
+                        <div class="job-category jobs-displaced">
+                            <div class="job-number">300M</div>
+                            <div class="job-label">Jobs at Risk</div>
+                            <div class="job-details">
+                                Goldman Sachs projection for global job displacement by 2030
+                                <br><br>
+                                • 46% administrative tasks<br>
+                                • 44% legal work<br>
+                                • 25% routine cognitive tasks
+                            </div>
+                        </div>
+                        <div class="job-category jobs-created">
+                            <div class="job-number">97M</div>
+                            <div class="job-label">New Jobs Created</div>
+                            <div class="job-details">
+                                World Economic Forum forecast of AI-driven job creation by 2025
+                                <br><br>
+                                • AI/ML specialists<br>
+                                • Human-AI collaboration roles<br>
+                                • New service industries
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; color: #64748b; font-size: 0.9em; margin-top: 20px;">
+                        Net result: Massive workforce transition requiring comprehensive retraining
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 8.3: UBI Trial Results Comparison -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 8.3: Universal Basic Income Trial Results</h2>
+                <div class="ubi-results">
+                    <div class="ubi-comparison">
+                        <div class="ubi-metric">
+                            <div class="ubi-value">-4.5%</div>
+                            <div class="ubi-description">
+                                <strong>Work Hours Reduction</strong><br>
+                                US trial (Sam Altman study)<br>
+                                2.2 fewer hours/week
+                            </div>
+                        </div>
+                        <div class="ubi-metric">
+                            <div class="ubi-value">+25%</div>
+                            <div class="ubi-description">
+                                <strong>Business Formation</strong><br>
+                                Kenya long-term trial<br>
+                                Increased entrepreneurship
+                            </div>
+                        </div>
+                        <div class="ubi-metric">
+                            <div class="ubi-value">$1.1T</div>
+                            <div class="ubi-description">
+                                <strong>Annual Cost (US)</strong><br>
+                                $1,000/month program<br>
+                                50% of income tax revenue
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; color: #64748b; font-size: 0.9em; margin-top: 20px;">
+                        Mixed results highlight need for careful UBI program design and implementation
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 8.4: Autonomous Value Creation by Sector -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 8.4: Autonomous Value Creation Examples</h2>
+                <div class="value-creation">
+                    <div class="sector-grid">
+                        <div class="sector-card">
+                            <div class="sector-title">Manufacturing (Tesla)</div>
+                            <div class="sector-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">$57,550</div>
+                                    <div class="metric-label">Annual savings per Optimus robot</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">50,000</div>
+                                    <div class="metric-label">Target robots by 2026</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">24/7</div>
+                                    <div class="metric-label">Continuous operation capability</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-title">Technology (Amazon)</div>
+                            <div class="sector-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">$260M</div>
+                                    <div class="metric-label">AI agent code modernization savings</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">79%</div>
+                                    <div class="metric-label">Time reduction in development</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">Autonomous</div>
+                                    <div class="metric-label">Warehouse fulfillment systems</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-title">Financial Services</div>
+                            <div class="sector-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">$6T</div>
+                                    <div class="metric-label">Daily FX trading volume (AI-driven)</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">Microseconds</div>
+                                    <div class="metric-label">Decision-making speed</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">Majority</div>
+                                    <div class="metric-label">Of trades executed autonomously</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sector-card">
+                            <div class="sector-title">Transportation</div>
+                            <div class="sector-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">$556B</div>
+                                    <div class="metric-label">Autonomous vehicle market by 2026</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">15%+</div>
+                                    <div class="metric-label">Cost savings vs human operations</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">Commercial</div>
+                                    <div class="metric-label">Services already operational</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 8.5: Investment Flow to Post-Labor Economy -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 8.5: Capital Flow to Post-Labor Technologies</h2>
+                <div class="investment-flows">
+                    <div class="flow-diagram">
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node ai-investment">
+                            <div class="flow-amount">$100B+</div>
+                            <div class="flow-label">AI Investment<br>2024</div>
+                        </div>
+                        <div class="flow-node autonomous-systems">
+                            <div class="flow-amount">$52.6B</div>
+                            <div class="flow-label">AI Agents Market<br>by 2030</div>
+                        </div>
+                        <div class="flow-node economic-value">
+                            <div class="flow-amount">$4.4T</div>
+                            <div class="flow-label">Annual GDP<br>Potential</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; color: #64748b; font-size: 0.9em; margin-top: 20px;">
+                        Capital flows demonstrate investor confidence in post-labor economic transformation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights Section -->
+        <div class="key-insights">
+            <h3>Key Insights: Post-Labor Economy Transformation</h3>
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <div class="insight-title">Investment Acceleration</div>
+                    <div class="insight-text">AI investment surged 80% in 2024, reaching $100+ billion and representing one-third of all global venture funding.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-title">Workforce Displacement</div>
+                    <div class="insight-text">300 million jobs at risk globally by 2030, requiring massive retraining and transition support programs.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-title">Real Value Creation</div>
+                    <div class="insight-text">Companies like Tesla and Amazon already demonstrate autonomous systems creating substantial economic value without human labor.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-title">Policy Response</div>
+                    <div class="insight-text">UBI trials show mixed results, highlighting need for careful design of post-labor economic support systems.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-title">Global Competition</div>
+                    <div class="insight-text">Nations adopting different strategies: US market-led, EU regulatory, China state-directed approaches to transition.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-title">Timeline Urgency</div>
+                    <div class="insight-text">Post-labor transformation already underway, requiring immediate policy and social adaptation rather than future planning.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
