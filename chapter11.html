@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 11: Global Trade Transformation Visualizations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .dashboard-content {
+            padding: 30px;
+        }
+
+        .figure-section {
+            margin-bottom: 50px;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .figure-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .growth-chart {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-axis {
+            position: absolute;
+            background: #e2e8f0;
+        }
+
+        .y-axis {
+            left: 50px;
+            top: 20px;
+            bottom: 50px;
+            width: 2px;
+        }
+
+        .x-axis {
+            left: 50px;
+            right: 20px;
+            bottom: 50px;
+            height: 2px;
+        }
+
+        .bar {
+            position: absolute;
+            background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+            transform: translateY(-2px);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            transform: translateX(-50%);
+            color: #475569;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1e40af;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .competitiveness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .country-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .country-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .country-score {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+
+        .country-rank {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .strength-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        .sme-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .performance-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .performance-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .performance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        }
+
+        .improvement-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .improvement-metric {
+            font-size: 14px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .agreement-network {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .agreement-node {
+            background: white;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .agreement-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.25);
+        }
+
+        .agreement-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .agreement-countries {
+            font-size: 10px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .legend-label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .key-insight {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-insight h4 {
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .key-insight p {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .figure-section {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .performance-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .competitiveness-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sme-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Chapter 11: Global Trade Transformation</h1>
+            <p class="dashboard-subtitle">Competitive Advantage Redefined Through Artificial Intelligence</p>
+        </div>
+        
+        <div class="dashboard-content">
+            
+            <!-- Figure 11.1: AI Supply Chain Market Growth -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 11.1: AI Supply Chain Market Explosive Growth (2024-2034)</h2>
+                <div class="chart-container">
+                    <div class="growth-chart">
+                        <div class="chart-axis y-axis"></div>
+                        <div class="chart-axis x-axis"></div>
+                        
+                        <!-- Market size bars -->
+                        <div class="bar" style="left: 100px; bottom: 50px; width: 60px; height: 40px;">
+                            <div class="bar-value">$9.15B</div>
+                        </div>
+                        <div class="bar-label" style="left: 130px;">2024</div>
+                        
+                        <div class="bar" style="left: 200px; bottom: 50px; width: 60px; height: 80px;">
+                            <div class="bar-value">$22.7B</div>
+                        </div>
+                        <div class="bar-label" style="left: 230px;">2027</div>
+                        
+                        <div class="bar" style="left: 300px; bottom: 50px; width: 60px; height: 120px;">
+                            <div class="bar-value">$40.5B</div>
+                        </div>
+                        <div class="bar-label" style="left: 330px;">2030</div>
+                        
+                        <div class="bar" style="left: 400px; bottom: 50px; width: 60px; height: 200px;">
+                            <div class="bar-value">$192.5B</div>
+                        </div>
+                        <div class="bar-label" style="left: 430px;">2034</div>
+                        
+                        <!-- Y-axis labels -->
+                        <div style="position: absolute; left: 10px; bottom: 250px; font-size: 12px; color: #64748b;">$200B</div>
+                        <div style="position: absolute; left: 10px; bottom: 170px; font-size: 12px; color: #64748b;">$150B</div>
+                        <div style="position: absolute; left: 10px; bottom: 130px; font-size: 12px; color: #64748b;">$100B</div>
+                        <div style="position: absolute; left: 10px; bottom: 90px; font-size: 12px; color: #64748b;">$50B</div>
+                        <div style="position: absolute; left: 10px; bottom: 50px; font-size: 12px; color: #64748b;">$0</div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>Key Insight</h4>
+                        <p>39% CAGR growth represents the fastest expansion in trade infrastructure technology, driven by supply chain disruption recovery and AI automation adoption across global logistics networks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 11.2: National AI Trade Competitiveness Rankings -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 11.2: National AI Trade Competitiveness Index (2024-2025)</h2>
+                <div class="chart-container">
+                    <div class="competitiveness-grid">
+                        <div class="country-card">
+                            <div class="country-name">🇺🇸 United States</div>
+                            <div class="country-score">87.03</div>
+                            <div class="country-rank">#1 Global AI Readiness</div>
+                            <div class="strength-tag">73% Global AI Compute</div>
+                            <div class="strength-tag">$73.4B Investment</div>
+                            <div class="strength-tag">Innovation Ecosystem</div>
+                        </div>
+                        
+                        <div class="country-card">
+                            <div class="country-name">🇨🇳 China</div>
+                            <div class="country-score">82.14</div>
+                            <div class="country-rank">#2 Global AI Readiness</div>
+                            <div class="strength-tag">58% National Adoption</div>
+                            <div class="strength-tag">$150B+ Commitment</div>
+                            <div class="strength-tag">Strategic Deployment</div>
+                        </div>
+                        
+                        <div class="country-card">
+                            <div class="country-name">🇸🇬 Singapore</div>
+                            <div class="country-score">80.79</div>
+                            <div class="country-rank">#3 Global AI Readiness</div>
+                            <div class="strength-tag">Smart Nation Initiative</div>
+                            <div class="strength-tag">Trade Hub Position</div>
+                            <div class="strength-tag">Digital Infrastructure</div>
+                        </div>
+                        
+                        <div class="country-card">
+                            <div class="country-name">🇬🇧 United Kingdom</div>
+                            <div class="country-score">75.2</div>
+                            <div class="country-rank">#4 Global AI Readiness</div>
+                            <div class="strength-tag">Commercial AI Leadership</div>
+                            <div class="strength-tag">Financial Services AI</div>
+                            <div class="strength-tag">Research Excellence</div>
+                        </div>
+                        
+                        <div class="country-card">
+                            <div class="country-name">🇫🇷 France</div>
+                            <div class="country-score">72.8</div>
+                            <div class="country-rank">#5 Global AI Readiness</div>
+                            <div class="strength-tag">Open-Source LLMs</div>
+                            <div class="strength-tag">Mistral AI Leadership</div>
+                            <div class="strength-tag">EU AI Framework</div>
+                        </div>
+                        
+                        <div class="country-card">
+                            <div class="country-name">🇰🇷 South Korea</div>
+                            <div class="country-score">70.1</div>
+                            <div class="country-rank">#6 Global AI Readiness</div>
+                            <div class="strength-tag">Industrial AI Integration</div>
+                            <div class="strength-tag">AI Basic Act 2024</div>
+                            <div class="strength-tag">Manufacturing Leadership</div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>Competitive Advantage Transformation</h4>
+                        <p>Traditional factors (natural resources, labor costs, geography) now explain less than 40% of export performance in technology-intensive industries, down from 75% a decade ago. AI capabilities, data assets, and digital infrastructure have become primary determinants of trade competitiveness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 11.3: SME AI Trade Democratization Statistics -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 11.3: AI Trade Democratization - SME Global Participation</h2>
+                <div class="chart-container">
+                    <div class="sme-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">500,000+</div>
+                            <div class="stat-label">SMEs Using AI Agents</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-number">50,000+</div>
+                            <div class="stat-label">Peak Season Users (Q4 2024)</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-number">50%</div>
+                            <div class="stat-label">Developing Nations in Top 20</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-number">43%</div>
+                            <div class="stat-label">Trade Participation Increase</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-number">$0.50</div>
+                            <div class="stat-label">Savings per AI Interaction</div>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Percentage Points Growth Potential</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 20px 0; padding: 15px; background: #f0f9ff; border-radius: 8px;">
+                        <h4 style="color: #1e40af; margin-bottom: 10px;">Leading Developing Countries in AI Trade Adoption:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇵🇰 Pakistan</span>
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇻🇳 Vietnam</span>
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇧🇩 Bangladesh</span>
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇳🇬 Nigeria</span>
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇰🇪 Kenya</span>
+                            <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 20px; font-size: 14px;">🇮🇩 Indonesia</span>
+                        </div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>Trade Democratization Impact</h4>
+                        <p>AI agents are eliminating traditional barriers to international trade, allowing SMEs in developing countries to compete directly with established players. Language barriers, regulatory complexity, and market access limitations are being overcome through intelligent automation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 11.4: AI Supply Chain Performance Improvements -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 11.4: AI Supply Chain Performance Transformation</h2>
+                <div class="chart-container">
+                    <div class="performance-matrix">
+                        <div class="performance-card">
+                            <div class="improvement-value">15%</div>
+                            <div class="improvement-metric">Logistics Cost Reduction</div>
+                        </div>
+                        
+                        <div class="performance-card">
+                            <div class="improvement-value">35%</div>
+                            <div class="improvement-metric">Inventory Optimization</div>
+                        </div>
+                        
+                        <div class="performance-card">
+                            <div class="improvement-value">65%</div>
+                            <div class="improvement-metric">Service Level Enhancement</div>
+                        </div>
+                        
+                        <div class="performance-card">
+                            <div class="improvement-value">22%</div>
+                            <div class="improvement-metric">Transit Time Reduction</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 30px 0;">
+                        <h4 style="color: #1e40af; margin-bottom: 15px; text-align: center;">Case Study Performance Results</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                                <div style="font-weight: 600; color: #1e40af; margin-bottom: 10px;">DHL Logistics Intelligence</div>
+                                <div style="font-size: 24px; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">$890M</div>
+                                <div style="font-size: 14px; color: #64748b;">Annual Operational Savings</div>
+                                <div style="font-size: 18px; font-weight: 600; color: #059669; margin-top: 8px;">28% Faster Delivery</div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                                <div style="font-weight: 600; color: #1e40af; margin-bottom: 10px;">Walmart Inventory AI</div>
+                                <div style="font-size: 24px; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">$1.2B</div>
+                                <div style="font-size: 14px; color: #64748b;">Annual Savings</div>
+                                <div style="font-size: 18px; font-weight: 600; color: #059669; margin-top: 8px;">34% Fewer Stockouts</div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                                <div style="font-weight: 600; color: #1e40af; margin-bottom: 10px;">Amazon Code Modernization</div>
+                                <div style="font-size: 24px; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">$260M</div>
+                                <div style="font-size: 14px; color: #64748b;">Labor Savings</div>
+                                <div style="font-size: 18px; font-weight: 600; color: #059669; margin-top: 8px;">79% Time Reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>System-Wide Transformation</h4>
+                        <p>AI is not just optimizing individual supply chain components—it's creating intelligent, adaptive networks that learn and improve continuously. The 14.3% trade cost reduction projected by the WTO represents fundamental efficiency gains across the entire global trading system.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Figure 11.5: Digital Trade Agreement Network -->
+            <div class="figure-section">
+                <h2 class="figure-title">Figure 11.5: Digital Trade Agreement Evolution and AI Governance</h2>
+                <div class="chart-container">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 32px; font-weight: 700; color: #3b82f6;">16</div>
+                        <div style="font-size: 14px; color: #64748b;">Global Trade Agreements with AI Provisions (January 2025)</div>
+                        <div style="font-size: 18px; font-weight: 600; color: #059669; margin-top: 5px;">14 from Asia-Pacific Region</div>
+                    </div>
+                    
+                    <div class="agreement-network">
+                        <div class="agreement-node" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;">
+                            <div class="agreement-name" style="color: white;">CPTPP</div>
+                            <div class="agreement-countries" style="color: #dbeafe;">12 Countries</div>
+                        </div>
+                        
+                        <div class="agreement-node" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white;">
+                            <div class="agreement-name" style="color: white;">USMCA</div>
+                            <div class="agreement-countries" style="color: #d1fae5;">3 Countries</div>
+                        </div>
+                        
+                        <div class="agreement-node" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white;">
+                            <div class="agreement-name" style="color: white;">DEPA</div>
+                            <div class="agreement-countries" style="color: #e9d5ff;">3 Countries</div>
+                        </div>
+                        
+                        <div class="agreement-node" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white;">
+                            <div class="agreement-name" style="color: white;">RCEP</div>
+                            <div class="agreement-countries" style="color: #fecaca;">15 Countries</div>
+                        </div>
+                        
+                        <div class="agreement-node" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); color: white;">
+                            <div class="agreement-name" style="color: white;">EU AI Act</div>
+                            <div class="agreement-countries" style="color: #fed7aa;">27 Countries</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 25px 0; padding: 20px; background: #f0f9ff; border-radius: 8px;">
+                        <h4 style="color: #1e40af; margin-bottom: 15px;">Key AI Trade Agreement Provisions:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-weight: 600; color: #3b82f6; margin-bottom: 5px;">Cross-Border Data Flows</div>
+                                <div style="font-size: 13px; color: #64748b;">Facilitating AI training data movement</div>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-weight: 600; color: #3b82f6; margin-bottom: 5px;">Algorithmic Transparency</div>
+                                <div style="font-size: 13px; color: #64748b;">Requirements for explainable AI</div>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-weight: 600; color: #3b82f6; margin-bottom: 5px;">Digital Identity Standards</div>
+                                <div style="font-size: 13px; color: #64748b;">Interoperability frameworks</div>
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px;">
+                                <div style="font-weight: 600; color: #3b82f6; margin-bottom: 5px;">AI Ethics Cooperation</div>
+                                <div style="font-size: 13px; color: #64748b;">Shared governance principles</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>Regulatory Framework Evolution</h4>
+                        <p>Digital trade agreements are evolving from traditional tariff negotiations to complex frameworks governing AI governance, data flows, and algorithmic transparency. Asia-Pacific leadership in AI trade agreements reflects the region's digital economy maturity and strategic positioning.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Dashboard -->
+            <div class="figure-section">
+                <h2 class="figure-title">Executive Summary: The Intelligence Economy Transformation</h2>
+                <div class="chart-container">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                        <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                            <h4 style="color: #1e40af; margin-bottom: 10px;">Market Transformation</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: #3b82f6;">$4.8T</div>
+                            <div style="font-size: 14px; color: #64748b;">Global AI Market by 2033</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #475569;">39% CAGR in supply chain applications driving unprecedented growth in trade infrastructure intelligence.</div>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 20px; border-radius: 8px; border-left: 4px solid #059669;">
+                            <h4 style="color: #047857; margin-bottom: 10px;">Trade Growth Potential</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: #059669;">14%</div>
+                            <div style="font-size: 14px; color: #64748b;">Trade Growth Increase by 2040</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #475569;">WTO projects massive global trade expansion through universal AI adoption and productivity gains.</div>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%); padding: 20px; border-radius: 8px; border-left: 4px solid #d97706;">
+                            <h4 style="color: #92400e; margin-bottom: 10px;">SME Democratization</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: #d97706;">500K+</div>
+                            <div style="font-size: 14px; color: #64748b;">SMEs Using AI Trade Agents</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #475569;">AI eliminating traditional barriers, enabling developing country businesses to compete globally.</div>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #fdf4ff 0%, #f3e8ff 100%); padding: 20px; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                            <h4 style="color: #5b21b6; margin-bottom: 10px;">Competitive Redefinition</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: #7c3aed;">60%</div>
+                            <div style="font-size: 14px; color: #64748b;">AI Capabilities Drive Export Performance</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #475569;">Traditional advantages now explain less than 40% of trade competitiveness in technology sectors.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-insight">
+                        <h4>The Intelligence Imperative</h4>
+                        <p>The transformation from resource-based to intelligence-based competitive advantage represents the most fundamental shift in international trade since the Industrial Revolution. Countries and companies that successfully integrate AI into their trade operations will capture disproportionate shares of global economic growth, while those that delay risk being marginalized in an increasingly intelligence-driven global economy.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
