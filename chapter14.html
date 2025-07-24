@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 14: Security and Military AI - Interactive Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #e74c3c;
+        }
+
+        .dashboard-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.3rem;
+            color: #34495e;
+            font-weight: 300;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #e74c3c;
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .chart-area {
+            height: 300px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .bar-chart, .line-chart, .pie-chart, .scatter-chart, .progress-chart {
+            height: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            padding: 20px 10px;
+            position: relative;
+        }
+
+        .bar {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+            min-width: 40px;
+            margin: 0 5px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .bar:hover {
+            background: linear-gradient(45deg, #c0392b, #a93226);
+            transform: scaleY(1.05);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+        }
+
+        .bar.defense {
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
+        }
+
+        .bar.defense:hover {
+            background: linear-gradient(45deg, #2c3e50, #1a252f);
+            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.5);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #2c3e50;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 8px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.4);
+        }
+
+        .stat-card.defense {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            box-shadow: 0 10px 30px rgba(52, 73, 94, 0.3);
+        }
+
+        .stat-card.defense:hover {
+            box-shadow: 0 20px 40px rgba(52, 73, 94, 0.4);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .line-chart {
+            position: relative;
+            padding: 20px;
+        }
+
+        .line-path {
+            stroke: #e74c3c;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 4px 8px rgba(231, 76, 60, 0.3));
+        }
+
+        .line-area {
+            fill: url(#lineGradient);
+            opacity: 0.3;
+        }
+
+        .data-point {
+            fill: #e74c3c;
+            stroke: white;
+            stroke-width: 2;
+            r: 6;
+            transition: all 0.3s ease;
+        }
+
+        .data-point:hover {
+            r: 8;
+            fill: #c0392b;
+        }
+
+        .axis {
+            stroke: #bbb;
+            stroke-width: 1;
+        }
+
+        .axis-label {
+            font-size: 0.8rem;
+            fill: #34495e;
+            text-anchor: middle;
+        }
+
+        .pie-slice {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .pie-slice:hover {
+            transform: scale(1.05);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #34495e;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .progress-ring {
+            transition: all 0.8s ease;
+        }
+
+        .progress-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart-container {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .chart-container:nth-child(2) { animation-delay: 0.1s; }
+        .chart-container:nth-child(3) { animation-delay: 0.2s; }
+        .chart-container:nth-child(4) { animation-delay: 0.3s; }
+        .chart-container:nth-child(5) { animation-delay: 0.4s; }
+
+        .insight-box {
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-left: 5px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-style: italic;
+            color: #2c3e50;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            position: relative;
+            transform: translateX(0);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-event {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Security and Military AI</h1>
+            <p class="dashboard-subtitle">Defense Transformation and Algorithmic Warfare</p>
+        </div>
+
+        <div class="chart-grid">
+            <!-- Chart 1: Military AI Market Growth -->
+            <div class="chart-container">
+                <h3 class="chart-title">Global Military AI Market Growth</h3>
+                <div class="chart-area">
+                    <svg width="100%" height="300" viewBox="0 0 400 250">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#e74c3c; stop-opacity:0.8"/>
+                                <stop offset="100%" style="stop-color:#e74c3c; stop-opacity:0.1"/>
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Grid lines -->
+                        <line x1="50" y1="30" x2="50" y2="200" class="axis"/>
+                        <line x1="50" y1="200" x2="380" y2="200" class="axis"/>
+                        
+                        <!-- Data line and area -->
+                        <path d="M 50,170 L 120,150 L 190,120 L 260,90 L 330,50" 
+                              class="line-area"/>
+                        <path d="M 50,170 L 120,150 L 190,120 L 260,90 L 330,50" 
+                              class="line-path"/>
+                        
+                        <!-- Data points -->
+                        <circle cx="50" cy="170" class="data-point"/>
+                        <circle cx="120" cy="150" class="data-point"/>
+                        <circle cx="190" cy="120" class="data-point"/>
+                        <circle cx="260" cy="90" class="data-point"/>
+                        <circle cx="330" cy="50" class="data-point"/>
+                        
+                        <!-- Labels -->
+                        <text x="50" y="220" class="axis-label">2024</text>
+                        <text x="120" y="220" class="axis-label">2026</text>
+                        <text x="190" y="220" class="axis-label">2028</text>
+                        <text x="260" y="220" class="axis-label">2030</text>
+                        <text x="330" y="220" class="axis-label">2031</text>
+                        
+                        <text x="25" y="175" class="axis-label">$14.3B</text>
+                        <text x="25" y="125" class="axis-label">$20B</text>
+                        <text x="25" y="95" class="axis-label">$25B</text>
+                        <text x="25" y="55" class="axis-label">$35.5B</text>
+                    </svg>
+                </div>
+                <div class="insight-box">
+                    14.49% CAGR growth from $14.3B (2024) to $35.5B (2031)
+                </div>
+            </div>
+
+            <!-- Chart 2: Pentagon Replicator Initiative -->
+            <div class="chart-container">
+                <h3 class="chart-title">Pentagon Replicator Initiative Scale</h3>
+                <div class="chart-area">
+                    <div class="bar-chart">
+                        <div class="bar defense" style="height: 80%;">
+                            <div class="bar-label">Air Domain</div>
+                            <div class="bar-value">40%</div>
+                        </div>
+                        <div class="bar defense" style="height: 60%;">
+                            <div class="bar-label">Land Domain</div>
+                            <div class="bar-value">30%</div>
+                        </div>
+                        <div class="bar defense" style="height: 50%;">
+                            <div class="bar-label">Sea Domain</div>
+                            <div class="bar-value">25%</div>
+                        </div>
+                        <div class="bar defense" style="height: 30%;">
+                            <div class="bar-label">Space Domain</div>
+                            <div class="bar-value">15%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-box">
+                    "Multiple thousands" of autonomous systems across all domains by 2026
+                </div>
+            </div>
+
+            <!-- Chart 3: Ukraine AI Drone Production -->
+            <div class="chart-container">
+                <h3 class="chart-title">Ukraine AI Drone Production Scale</h3>
+                <div class="chart-area">
+                    <svg width="100%" height="300" viewBox="0 0 300 300">
+                        <defs>
+                            <linearGradient id="pieGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#e74c3c"/>
+                                <stop offset="100%" style="stop-color:#c0392b"/>
+                            </linearGradient>
+                            <linearGradient
