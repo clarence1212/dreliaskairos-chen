@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10: Investment and Capital Flows Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-title {
+            font-size: 2.5em;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2em;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .figure-section {
+            background: white;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .figure-title {
+            font-size: 1.4em;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            font-weight: 600;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        /* Global AI Investment Flows Chart */
+        .investment-flows {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .flow-chart {
+            position: relative;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .flow-bar {
+            height: 25px;
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 12px;
+            margin-right: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .flow-label {
+            flex: 1;
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+
+        .flow-value {
+            font-weight: 700;
+            color: #1d4ed8;
+            font-size: 1.1em;
+        }
+
+        .geographic-distribution {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .region-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        /* Funding Stage Chart */
+        .funding-stages {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .stage-chart {
+            position: relative;
+            height: 300px;
+        }
+
+        .stage-bar {
+            position: absolute;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stage-bar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .stage-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+
+        /* Corporate Spending Chart */
+        .corporate-spending {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .company-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-top: 4px solid #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .company-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .spending-amount {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #1d4ed8;
+            margin-bottom: 8px;
+        }
+
+        .spending-details {
+            font-size: 0.9em;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 4px;
+            animation: fillProgress 2s ease-out;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            100% { width: var(--progress-width); }
+        }
+
+        /* Sovereign Wealth Fund Chart */
+        .swf-investment {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .swf-chart {
+            position: relative;
+            height: 350px;
+        }
+
+        .swf-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.8) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .swf-bubble:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .swf-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .swf-fund {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .fund-name {
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .fund-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        /* Valuation Analysis Chart */
+        .valuation-analysis {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .valuation-timeline {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .timeline-line {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: #3b82f6;
+        }
+
+        .valuation-point {
+            position: absolute;
+            bottom: 20px;
+            background: #1d4ed8;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .valuation-point:hover {
+            transform: translateX(-50%) translateY(-5px);
+            background: #1e40af;
+        }
+
+        .valuation-point::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: #1d4ed8;
+            border-radius: 50%;
+        }
+
+        .sustainability-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .indicator-card {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .indicator-title {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+
+        .indicator-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1d4ed8;
+            margin-bottom: 8px;
+        }
+
+        .indicator-trend {
+            font-size: 0.9em;
+            color: #059669;
+        }
+
+        .indicator-trend.negative {
+            color: #dc2626;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            color: #64748b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .investment-flows,
+            .funding-stages,
+            .swf-investment {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-title {
+                font-size: 1.8em;
+            }
+            
+            .corporate-spending {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Chapter 10: Investment and Capital Flows</h1>
+            <p class="dashboard-subtitle">Where Money Goes - The $700+ Billion AI Investment Revolution</p>
+            
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">$314B</div>
+                    <div class="metric-label">Global VC Funding 2024</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">33%</div>
+                    <div class="metric-label">AI Share of All VC</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$320B</div>
+                    <div class="metric-label">Corporate Infrastructure 2025</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$82B</div>
+                    <div class="metric-label">Sovereign Wealth Funds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.1: Global AI Investment Flows -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.1: Global AI Investment Flows 2024-2025</h2>
+            <div class="investment-flows">
+                <div class="flow-chart">
+                    <div class="flow-item">
+                        <div class="flow-bar" style="width: 100%;"></div>
+                        <div class="flow-label">Venture Capital</div>
+                        <div class="flow-value">$100B</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-bar" style="width: 90%;"></div>
+                        <div class="flow-label">Generative AI Funding</div>
+                        <div class="flow-value">$45B</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-bar" style="width: 70%;"></div>
+                        <div class="flow-label">Late-Stage Rounds</div>
+                        <div class="flow-value">$81B</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-bar" style="width: 60%;"></div>
+                        <div class="flow-label">US Market Share</div>
+                        <div class="flow-value">57%</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-bar" style="width: 45%;"></div>
+                        <div class="flow-label">Bay Area Concentration</div>
+                        <div class="flow-value">$90B</div>
+                    </div>
+                </div>
+                
+                <div class="geographic-distribution">
+                    <h3 style="color: #1e3a8a; margin-bottom: 15px;">Geographic Distribution</h3>
+                    <div class="region-item">
+                        <span><strong>United States:</strong> $178B</span>
+                        <span style="color: #1d4ed8; font-weight: 600;">57%</span>
+                    </div>
+                    <div class="region-item">
+                        <span><strong>Europe:</strong> $62.4B</span>
+                        <span style="color: #1d4ed8; font-weight: 600;">20%</span>
+                    </div>
+                    <div class="region-item">
+                        <span><strong>Asia-Pacific:</strong> $78.8B</span>
+                        <span style="color: #1d4ed8; font-weight: 600;">23%</span>
+                    </div>
+                    <div class="region-item">
+                        <span><strong>Bay Area Alone:</strong> $90B</span>
+                        <span style="color: #dc2626; font-weight: 600;">29%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.2: Funding Stage Distribution -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.2: Funding Stage Distribution and Deal Size Evolution</h2>
+            <div class="funding-stages">
+                <div class="stage-chart">
+                    <div class="stage-bar" style="left: 10%; bottom: 20%; width: 25%; height: 60%;">
+                        <div style="text-align: center;">
+                            <div>Late-Stage</div>
+                            <div style="font-size: 1.2em; margin-top: 5px;">$81B</div>
+                        </div>
+                    </div>
+                    <div class="stage-bar" style="left: 40%; bottom: 20%; width: 25%; height: 40%;">
+                        <div style="text-align: center;">
+                            <div>Early-Stage</div>
+                            <div style="font-size: 1.2em; margin-top: 5px;">$24B</div>
+                        </div>
+                    </div>
+                    <div class="stage-bar" style="left: 70%; bottom: 20%; width: 25%; height: 25%;">
+                        <div style="text-align: center;">
+                            <div>Seed</div>
+                            <div style="font-size: 1.2em; margin-top: 5px;">$7.2B</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stage-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"></div>
+                        <div>
+                            <div style="font-weight: 600; color: #1e3a8a;">Late-Stage (Series C+)</div>
+                            <div style="font-size: 0.9em; color: #64748b;">75% of total funding, mega-rounds dominate</div>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);"></div>
+                        <div>
+                            <div style="font-weight: 600; color: #1e3a8a;">Early-Stage (Series A/B)</div>
+                            <div style="font-size: 0.9em; color: #64748b;">Focus on applied AI solutions</div>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);"></div>
+                        <div>
+                            <div style="font-weight: 600; color: #1e3a8a;">Seed Stage</div>
+                            <div style="font-size: 0.9em; color: #64748b;">Market maturation, selective funding</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.3: Corporate AI Infrastructure Spending -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.3: Corporate AI Infrastructure Spending by Company 2025</h2>
+            <div class="corporate-spending">
+                <div class="company-card">
+                    <div class="company-name">Amazon</div>
+                    <div class="spending-amount">$100B</div>
+                    <div class="spending-details">"Once-in-a-lifetime opportunity" - AWS focus</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 100%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: #64748b;">+20% vs 2024 ($83B)</div>
+                </div>
+                
+                <div class="company-card">
+                    <div class="company-name">Microsoft</div>
+                    <div class="spending-amount">$80B</div>
+                    <div class="spending-details">AI-enabled data centers, 50%+ in US</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 80%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: #64748b;">+42% YoY growth</div>
+                </div>
+                
+                <div class="company-card">
+                    <div class="company-name">Google/Alphabet</div>
+                    <div class="spending-amount">$75B</div>
+                    <div class="spending-details">Technical infrastructure: servers, data centers</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 75%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: #64748b;">$16-18B Q1 alone</div>
+                </div>
+                
+                <div class="company-card">
+                    <div class="company-name">Meta</div>
+                    <div class="spending-amount">$65B</div>
+                    <div class="spending-details">"Defining year for AI" - Zuckerberg</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 65%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: #64748b;">Historic innovation focus</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.4: Sovereign Wealth Fund AI Investment -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.4: Sovereign Wealth Fund AI Investment by Region and Scale</h2>
+            <div class="swf-investment">
+                <div class="swf-chart">
+                    <div class="swf-bubble" style="width: 120px; height: 120px; top: 20%; left: 15%;">
+                        <div>
+                            <div>ADIA</div>
+                            <div style="font-size: 0.8em;">$330B AUM</div>
+                        </div>
+                    </div>
+                    <div class="swf-bubble" style="width: 100px; height: 100px; top: 15%; right: 20%;">
+                        <div>
+                            <div>Mubadala</div>
+                            <div style="font-size: 0.8em;">$29B invested</div>
+                        </div>
+                    </div>
+                    <div class="swf-bubble" style="width: 90px; height: 90px; bottom: 30%; left: 25%;">
+                        <div>
+                            <div>PIF</div>
+                            <div style="font-size: 0.8em;">Saudi Arabia</div>
+                        </div>
+                    </div>
+                    <div class="swf-bubble" style="width: 80px; height: 80px; bottom: 25%; right: 30%;">
+                        <div>
+                            <div>QIA</div>
+                            <div style="font-size: 0.8em;">Qatar</div>
+                        </div>
+                    </div>
+                    <div class="swf-bubble" style="width: 70px; height: 70px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <div>
+                            <div>MGX</div>
+                            <div style="font-size: 0.8em;">UAE</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swf-details">
+                    <div class="swf-fund">
+                        <div class="fund-name">Gulf SWF Dominance</div>
+                        <div class="fund-stats">
+                            <span>Total Assets: $12T globally</span>
+                            <span>40% from Gulf states</span>
+                        </div>
+                    </div>
+                    <div class="swf-fund">
+                        <div class="fund-name">2024 AI Investment</div>
+                        <div class="fund-stats">
+                            <span>Deployed: $82B</span>
+                            <span>5x growth YoY</span>
+                        </div>
+                    </div>
+                    <div class="swf-fund">
+                        <div class="fund-name">Strategic Focus</div>
+                        <div class="fund-stats">
+                            <span>OpenAI partnerships</span>
+                            <span>US tech diversification</span>
+                        </div>
+                    </div>
+                    <div class="swf-fund">
+                        <div class="fund-name">Royal Private Offices</div>
+                        <div class="fund-stats">
+                            <span>Assets: $500B</span>
+                            <span>Direct AI investment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.5: AI Infrastructure Investment Categories -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.5: AI Infrastructure Investment Categories and Timeline</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="background: #f8fafc; padding: 25px; border-radius: 12px;">
+                    <h3 style="color: #1e3a8a; margin-bottom: 20px;">Investment Categories</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px;">
+                            <span style="font-weight: 600;">Data Centers</span>
+                            <span style="color: #1d4ed8; font-weight: 700;">$1.1T by 2029</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px;">
+                            <span style="font-weight: 600;">Semiconductors</span>
+                            <span style="color: #1d4ed8; font-weight: 700;">$3.1T by 2030</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px;">
+                            <span style="font-weight: 600;">Power Generation</span>
+                            <span style="color: #1d4ed8; font-weight: 700;">150-200 GW</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 8px;">
+                            <span style="font-weight: 600;">Fiber Infrastructure</span>
+                            <span style="color: #1d4ed8; font-weight: 700;">3M miles</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 25px; border-radius: 12px;">
+                    <h3 style="color: #1e3a8a; margin-bottom: 20px;">Timeline Projections</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="padding: 15px; background: linear-gradient(90deg, #3b82f6, #1d4ed8); color: white; border-radius: 8px; text-align: center;">
+                            <div style="font-weight: 700; font-size: 1.1em;">2025</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">$320B+ Corporate Spending</div>
+                        </div>
+                        <div style="padding: 15px; background: linear-gradient(90deg, #60a5fa, #3b82f6); color: white; border-radius: 8px; text-align: center;">
+                            <div style="font-weight: 700; font-size: 1.1em;">2027</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">146 TWh Energy Consumption</div>
+                        </div>
+                        <div style="padding: 15px; background: linear-gradient(90deg, #93c5fd, #60a5fa); color: white; border-radius: 8px; text-align: center;">
+                            <div style="font-weight: 700; font-size: 1.1em;">2029</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">$1.1T Data Center CapEx</div>
+                        </div>
+                        <div style="padding: 15px; background: linear-gradient(90deg, #bfdbfe, #93c5fd); color: #1e3a8a; border-radius: 8px; text-align: center;">
+                            <div style="font-weight: 700; font-size: 1.1em;">2030</div>
+                            <div style="font-size: 0.9em;">$6.7T Total AI Infrastructure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Figure 10.6: Valuation Analysis -->
+        <div class="figure-section">
+            <h2 class="figure-title">Figure 10.6: Valuation Growth vs. Revenue Fundamentals - Leading AI Companies</h2>
+            <div class="valuation-analysis">
+                <div class="valuation-timeline">
+                    <h3 style="color: #1e3a8a; margin-bottom: 15px;">OpenAI Valuation Evolution</h3>
+                    <div class="timeline-line"></div>
+                    
+                    <div class="valuation-point" style="left: 20%;">
+                        <div>2023</div>
+                        <div style="font-size: 0.8em;">$29B</div>
+                    </div>
+                    <div class="valuation-point" style="left: 50%;">
+                        <div>Oct 2024</div>
+                        <div style="font-size: 0.8em;">$157B</div>
+                    </div>
+                    <div class="valuation-point" style="left: 80%;">
+                        <div>Mar 2025</div>
+                        <div style="font-size: 0.8em;">$300B</div>
+                    </div>
+                </div>
+                
+                <div class="sustainability-indicators">
+                    <div class="indicator-card">
+                        <div class="indicator-title">Market Concentration Risk</div>
+                        <div class="indicator-value">33%</div>
+                        <div class="indicator-trend negative">↑ Single sector dominance</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="indicator-title">Revenue Growth</div>
+                        <div class="indicator-value">60%</div>
+                        <div class="indicator-trend">↑ Databricks YoY</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="indicator-title">Enterprise Adoption</div>
+                        <div class="indicator-value">16%</div>
+                        <div class="indicator-trend">↑ Russell 3000 mentions</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="indicator-title">M&A Exit Value</div>
+                        <div class="indicator-value">$71B</div>
+                        <div class="indicator-trend">↑ Q1 2025 record</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Data Sources:</strong> Crunchbase, Company SEC Filings, McKinsey Analysis, Deloitte SWF Report, Goldman Sachs Research</p>
+            <p><strong>Chapter 10:</strong> Investment and Capital Flows - Where Money Goes | <strong>Research Period:</strong> January 2024 - July 2025</p>
+        </div>
+        
+    </div>
+
+    <script>
+        // Add interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fillProgress 2s ease-out forwards';
+                    }
+                });
+            });
+            
+            progressBars.forEach(bar => observer.observe(bar));
+            
+            // Add click interactions for valuation points
+            const valuationPoints = document.querySelectorAll('.valuation-point');
+            valuationPoints.forEach(point => {
+                point.addEventListener('click', function() {
+                    const detail = this.querySelector('div:last-child').textContent;
+                    alert(`Valuation: ${detail} - Click to explore detailed analysis`);
+                });
+            });
+            
+            // Bubble hover effects
+            const bubbles = document.querySelectorAll('.swf-bubble');
+            bubbles.forEach(bubble => {
+                bubble.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                    this.style.boxShadow = '0 10px 30px rgba(59, 130, 246, 0.4)';
+                });
+                
+                bubble.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
