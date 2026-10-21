@@ -33,3 +33,10 @@
     apply();
   }
 })();
+/* Reading progress on essay pages (thin bar, not sticky content). */
+(function () {
+  var bar = document.getElementById('prog'), art = document.querySelector('.art-body');
+  if (!bar || !art) return;
+  function upd() { var r = art.getBoundingClientRect(), h = art.offsetHeight - window.innerHeight; var p = h > 0 ? Math.min(1, Math.max(0, -r.top / h)) : 1; bar.style.transform = 'scaleX(' + p + ')'; }
+  window.addEventListener('scroll', upd, { passive: true }); upd();
+})();
