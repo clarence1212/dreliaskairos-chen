@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dreliaskairos-chen.com/sitemap.xml
