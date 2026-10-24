@@ -653,3 +653,4 @@ footer.site .legal{border-top-color:var(--rule);color:var(--muted)}
 .lines-paper .v{color:var(--ink)}
 .contact,.news{background:var(--surface);color:var(--ink)}
 .related li{flex-wrap:wrap;gap:4px 16px}.related li span{white-space:normal}
+.fw2 .fw-ic{width:28px;height:28px;color:var(--accent);margin-bottom:4px}
